@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:heroicons/heroicons.dart';
-import 'package:tak/core/bloc/bottom_navigation/bottom_navigation_bloc.dart';
-import 'package:tak/core/bloc/bottom_navigation/bottom_navigation_event.dart';
-import 'package:tak/core/bloc/bottom_navigation/bottom_navigation_state.dart';
-import 'package:tak/core/utils/colors.dart';
+
 import 'package:tak/core/widgets/tak_along_drawer.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tak/features/home/presentation/pages/home.dart';
 import 'package:tak/features/messages/presentation/pages/messages.dart';
 import 'package:tak/features/notification/presentation/pages/notifications.dart';
 import 'package:tak/features/transactions/presentation/pages/transactions.dart';
+
+import '../utils/colors.dart';
 
 List<BottomNavigationBarItem> bottomNavItems = <BottomNavigationBarItem>[
   BottomNavigationBarItem(
@@ -123,33 +119,42 @@ const List<Widget> bottomNavScreen = <Widget>[
   Notifications(),
 ];
 
-class TakBottomNavigation extends StatelessWidget {
+class TakBottomNavigation extends StatefulWidget {
   const TakBottomNavigation({super.key});
 
   @override
+  State<TakBottomNavigation> createState() => _TakBottomNavigationState();
+}
+
+class _TakBottomNavigationState extends State<TakBottomNavigation> {
+  int currentPageIndex = 0;
+  final bool isHomeScreen = true;
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BottomNavigationBloc, BottomNavigationState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Scaffold(
-            body: bottomNavScreen.elementAt(state.index),
-            drawer: const Drawer(
-              child: TakDrawer(),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              elevation: 1,
-              type: BottomNavigationBarType.fixed,
-              items: bottomNavItems,
-              currentIndex: state.index,
-              selectedItemColor: primaryColor,
-              selectedFontSize: 14.sp,
-              unselectedFontSize: 14.sp,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              onTap: (index) => BlocProvider.of<BottomNavigationBloc>(context)
-                  .add(TabChange(index: index)),
-            ),
-          );
-        });
+    return Scaffold(
+      body: bottomNavScreen.elementAt(currentPageIndex),
+      drawer: const Drawer(
+        child: TakDrawer(),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 1,
+        type: BottomNavigationBarType.fixed,
+        items: bottomNavItems,
+        currentIndex: currentPageIndex,
+        selectedItemColor: primaryColor,
+        selectedFontSize: 14.sp,
+        unselectedFontSize: 14.sp,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        // onTap: (index) => BlocProvider.of<BottomNavigationBloc>(context).add(
+        //   TabChange(index: index),
+        onTap: (index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+      ),
+    );
   }
 }

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
-import 'package:tak/features/transactions/presentation/bloc/transaction_bloc.dart';
 import 'package:tak/features/transactions/presentation/widgets/invoice_transaction_widget.dart';
 import 'package:tak/features/transactions/presentation/widgets/payment_transaction_widget.dart';
 import 'package:tak/features/transactions/presentation/widgets/rent_balance_widget.dart';
@@ -22,9 +19,9 @@ class _TransactionsState extends State<Transactions> {
   String endDate = '';
   @override
   void initState() {
-    context.read<TransactionBloc>()
-      ..add(TransactionsFetch())
-      ..add(BalanceTransactionFetch());
+    // context.read<TransactionBloc>()
+    //   ..add(TransactionsFetch())
+    //   ..add(BalanceTransactionFetch());
     super.initState();
   }
 
@@ -42,22 +39,22 @@ class _TransactionsState extends State<Transactions> {
           children: [
             GestureDetector(
               onTap: () {
-                context.push('/rent-transactions').then((value) {
-                  context.read<TransactionBloc>()
-                    ..add(TransactionsFetch())
-                    ..add(BalanceTransactionFetch());
-                });
+                // context.push('/rent-transactions').then((value) {
+                //   context.read<TransactionBloc>()
+                //     ..add(TransactionsFetch())
+                //     ..add(BalanceTransactionFetch());
+                // });
               },
               child: const RentBalanceWidget(),
             ),
             Gap(16.h),
             GestureDetector(
               onTap: () {
-                context.push('/service-charge-transactions').then((value) {
-                  context.read<TransactionBloc>()
-                    ..add(TransactionsFetch())
-                    ..add(BalanceTransactionFetch());
-                });
+                // context.push('/service-charge-transactions').then((value) {
+                //   context.read<TransactionBloc>()
+                //     ..add(TransactionsFetch())
+                //     ..add(BalanceTransactionFetch());
+                // });
               },
               child: const ServiceBalanceWidget(),
             ),

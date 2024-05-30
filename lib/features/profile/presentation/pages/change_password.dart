@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:tak/core/services/get_it_services.dart';
-import 'package:tak/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:tak/features/profile/presentation/widgets/password_field.dart';
 import 'package:tak/features/profile/presentation/pages/change_password_button.dart';
 
@@ -18,9 +15,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileBloc>(
-      create: (context) => getIt<ProfileBloc>(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text(
             'Change Password',
@@ -55,7 +50,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
           ),
         ),
-      ),
+
     );
   }
 }

@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/core/constants/constants.dart';
 import 'package:tak/core/data/models/user_model.dart';
 import 'package:tak/core/domain/entities/tenant_house_entity.dart';
-import 'package:tak/core/services/get_it_services.dart';
 import 'package:tak/core/services/secure_storage.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/extensions.dart';
 import 'package:tak/core/widgets/tak_cache_network_image.dart';
-import 'package:tak/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:tak/features/home/presentation/widgets/carousel_widget.dart';
 import 'package:tak/features/home/presentation/widgets/house_banner_widget.dart';
 import 'package:tak/features/home/presentation/widgets/service_request_widget.dart';
 import 'package:tak/features/home/presentation/widgets/visitors_widget.dart';
-import 'package:tak/features/service_request/presentation/bloc/service_request_bloc.dart';
-import 'package:tak/features/transactions/presentation/bloc/transaction_bloc.dart';
 import 'package:tak/features/transactions/presentation/widgets/rent_balance_widget.dart';
 import 'package:tak/features/transactions/presentation/widgets/service_balance_widget.dart';
-import 'package:tak/features/visitors/presentation/bloc/visitors_bloc.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -32,7 +25,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  SecureStorage secureStorage = getIt<SecureStorage>();
+  SecureStorage secureStorage = SecureStorage();
   String avatar = imageplaceholder;
   String name = "";
   String role = "";
@@ -42,10 +35,10 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    context.read<AuthBloc>().add(MeEvent());
+   // context.read<AuthBloc>().add(MeEvent());
     _getUserData();
 
-    context.read<TransactionBloc>().add(BalanceTransactionFetch());
+    //context.read<TransactionBloc>().add(BalanceTransactionFetch());
   }
 
   _getUserData() async {
@@ -62,29 +55,21 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ServiceRequestBloc>(
-          create: (BuildContext context) =>
-              getIt<ServiceRequestBloc>()..add(GetServiceRequestsEvent()),
-        ),
-        BlocProvider<VisitorsBloc>(
-          create: (BuildContext context) =>
-              getIt<VisitorsBloc>()..add(GetVisitorsEvent()),
-        ),
-      ],
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           actions: [
             IconButton(
-              onPressed: () =>
-                  context.push("/settings").then((value) => _getUserData()),
+              onPressed: ()
+                 {
+                   //context.push("/settings").then((value) => _getUserData());
+                 },
               icon: const Icon(Icons.settings),
             ),
           ],
           leading: GestureDetector(
-            onTap: () =>
-                context.push("/profile").then((value) => _getUserData()),
+            onTap: () {
+                //context.push("/profile").then((value) => _getUserData()),
+            },
             child: Padding(
               padding: EdgeInsets.all(12.w),
               child: TakCachedNetworkImage(
@@ -99,7 +84,8 @@ class _HomeState extends State<Home> {
             ),
           ),
           title: GestureDetector(
-            onTap: () => context.push("/profile"),
+            onTap: (){ //context.push("/profile");
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -156,12 +142,16 @@ class _HomeState extends State<Home> {
                   HouseBannerWidget(tenantHouseEntity: tenantHouseEntity),
                   Gap(16.h),
                   GestureDetector(
-                    onTap: () => context.push('/rent-transactions'),
+                    onTap: () {
+                      //context.push('/rent-transactions')
+                    } ,
                     child: const RentBalanceWidget(),
                   ),
                   Gap(16.h),
                   GestureDetector(
-                    onTap: () => context.push('/service-charge-transactions'),
+                    onTap: () {
+                      //context.push('/service-charge-transactions')
+                    },
                     child: const ServiceBalanceWidget(),
                   ),
                   Gap(16.h),
@@ -181,7 +171,9 @@ class _HomeState extends State<Home> {
                       ),
                       Expanded(
                         child: GestureDetector(
-                          onTap: () => context.push('/service-requests'),
+                          onTap: () {
+                            //context.push('/service-requests')
+                          } ,
                           child: Text(
                             "See more",
                             textAlign: TextAlign.end,
@@ -215,7 +207,10 @@ class _HomeState extends State<Home> {
                       ),
                       Expanded(
                         child: GestureDetector(
-                          onTap: () => context.push('/visitors'),
+                          onTap: () {
+
+                            //context.push('/visitors')
+                          },
                           child: Text(
                             "See more",
                             textAlign: TextAlign.end,
@@ -239,15 +234,15 @@ class _HomeState extends State<Home> {
           ),
         ),
         floatingActionButton: _getFAB(),
-      ),
+
     );
   }
 
   Future<void> _pullRefresh() async {
-    context.read<AuthBloc>().add(MeEvent());
-    context.read<ServiceRequestBloc>().add(GetServiceRequestsEvent());
-    context.read<VisitorsBloc>().add(GetVisitorsEvent());
-    context.read<TransactionBloc>().add(BalanceTransactionFetch());
+    // context.read<AuthBloc>().add(MeEvent());
+    // context.read<ServiceRequestBloc>().add(GetServiceRequestsEvent());
+    // context.read<VisitorsBloc>().add(GetVisitorsEvent());
+    // context.read<TransactionBloc>().add(BalanceTransactionFetch());
   }
 
   Widget _getFAB() {
@@ -265,9 +260,9 @@ class _HomeState extends State<Home> {
           ),
           backgroundColor: primaryColor,
           onTap: () async {
-            await context.push("/add-visitor");
+            //await context.push("/add-visitor");
             // ignore: use_build_context_synchronously
-            context.read<VisitorsBloc>().add(GetVisitorsEvent());
+           // context.read<VisitorsBloc>().add(GetVisitorsEvent());
           },
           label: 'New Vistor',
           labelStyle: TextStyle(
@@ -281,9 +276,9 @@ class _HomeState extends State<Home> {
           ),
           backgroundColor: primaryColor,
           onTap: () async {
-            await context.push("/add-request", extra: houseId);
+            //await context.push("/add-request", extra: houseId);
             // ignore: use_build_context_synchronously
-            context.read<ServiceRequestBloc>().add(GetServiceRequestsEvent());
+           // context.read<ServiceRequestBloc>().add(GetServiceRequestsEvent());
           },
           label: 'Service Request',
           labelStyle: TextStyle(

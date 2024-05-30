@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/colors.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SocialButtons extends StatefulWidget {
   const SocialButtons({super.key});
@@ -13,19 +12,19 @@ class SocialButtons extends StatefulWidget {
 }
 
 class _SocialButtonsState extends State<SocialButtons> {
-  final GoogleSignIn googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+  // final GoogleSignIn googleSignIn = GoogleSignIn(
+  //   scopes: [
+  //     'email',
+  //     'https://www.googleapis.com/auth/contacts.readonly',
+  //   ],
+  // );
 
   Future<void> handleGoogleSignIn() async {
     try {
-      GoogleSignInAccount? response = await googleSignIn.signIn();
-      if (response != null) {
-        // String email = response.email;
-      }
+      // GoogleSignInAccount? response = await googleSignIn.signIn();
+      // if (response != null) {
+      //   // String email = response.email;
+      // }
     } catch (_) {}
   }
 

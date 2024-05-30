@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:intl/intl.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
-import 'package:tak/features/transactions/presentation/bloc/transaction_bloc.dart';
 import 'package:tak/features/transactions/presentation/widgets/invoice_widget.dart';
 
 class Invoices extends StatefulWidget {
@@ -26,9 +24,9 @@ class _InvoicesState extends State<Invoices> {
     endDate = DateFormat('yyyy-MM-dd').format(now);
     startDate = DateFormat('yyyy-MM-dd').format(startDateYear);
 
-    context
-        .read<TransactionBloc>()
-        .add(InvoiceTransactionFetch(startDate: '', endDate: ''));
+    // context
+    //     .read<TransactionBloc>()
+    //     .add(InvoiceTransactionFetch(startDate: '', endDate: ''));
     super.initState();
   }
 
@@ -132,9 +130,9 @@ class _InvoicesState extends State<Invoices> {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        context.read<TransactionBloc>().add(
-                            InvoiceTransactionFetch(
-                                startDate: startDate, endDate: endDate));
+                        // context.read<TransactionBloc>().add(
+                        //     InvoiceTransactionFetch(
+                        //         startDate: startDate, endDate: endDate));
                       },
                       child: Container(
                         height: 65.h,

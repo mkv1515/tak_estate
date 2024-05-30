@@ -1,7 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:tak/core/utils/colors.dart';
 
 class NotificationService {
@@ -27,26 +25,26 @@ class NotificationService {
         debug: true);
   }
 
-  static Future<void> display(RemoteMessage message) async {
-    AwesomeNotifications().createNotification(
-        content: NotificationContent(
-      id: 10,
-      channelKey: 'basic_channel',
-      actionType: ActionType.Default,
-      title: message.notification!.title,
-      body: message.notification!.body,
-    ));
+  // static Future<void> display(RemoteMessage message) async {
+  //   AwesomeNotifications().createNotification(
+  //       content: NotificationContent(
+  //     id: 10,
+  //     channelKey: 'basic_channel',
+  //     actionType: ActionType.Default,
+  //     title: message.notification!.title,
+  //     body: message.notification!.body,
+  //   ));
 
-    InAppNotifications.show(
-        title: message.notification!.title,
-        leading: const Icon(
-          Icons.notifications_active,
-          color: primaryColor,
-          size: 50,
-        ),
-        description: message.notification!.body,
-        onTap: () {
-          // Do whatever you need!
-        });
-  }
+  //   InAppNotifications.show(
+  //       title: message.notification!.title,
+  //       leading: const Icon(
+  //         Icons.notifications_active,
+  //         color: primaryColor,
+  //         size: 50,
+  //       ),
+  //       description: message.notification!.body,
+  //       onTap: () {
+  //         // Do whatever you need!
+  //       });
+  // }
 }

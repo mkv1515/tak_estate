@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/colors.dart';
-import 'package:tak/features/transactions/presentation/bloc/transaction_bloc.dart';
 
 class RentBalanceWidget extends StatelessWidget {
   const RentBalanceWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TransactionBloc, TransactionState>(
-      buildWhen: (pre, state) {
-        return state is BalanceTransactionLoaded;
-      },
-      builder: (context, state) {
-        String amount = '0.00';
-        if (state is BalanceTransactionLoaded) {
-          amount = state.balanceEntity.rentTotal.toString();
-        }
+            String amount = '0.00';
+
+
         return Container(
           width: double.infinity,
           margin: EdgeInsets.only(left: 8.w, right: 8.w),
@@ -67,7 +59,6 @@ class RentBalanceWidget extends StatelessWidget {
             ],
           ),
         );
-      },
-    );
+      
   }
 }

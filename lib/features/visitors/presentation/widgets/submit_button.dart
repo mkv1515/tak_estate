@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/core/widgets/tak_along_loading.dart';
-import 'package:tak/features/visitors/presentation/bloc/visitors_bloc.dart';
 
 class SubmitButton extends StatelessWidget {
   final String? visitorPhoneNumber;
@@ -23,21 +20,7 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<VisitorsBloc, VisitorState>(
-      listener: (context, state) {
-        if (state is VisitorLoadedState) {
-          toast(state.visitorEntity.message);
-          if (state.visitorEntity.status) {
-            context.pop();
-          }
-        }
-        if (state is VisitorErrorState) {
-          toast(state.message);
-          if (state.message == "unauthenticated") signout(context);
-        }
-      },
-      builder: (context, state) {
-        return Container(
+    return  Container(
           margin: EdgeInsets.only(
             left: 16.w,
             right: 16.w,
@@ -56,9 +39,11 @@ class SubmitButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
             ),
-            child: state is VisitorLoadingState
-                ? const TakLoading()
-                : Text(
+            child:
+            // state is VisitorLoadingState
+            //     ? const TakLoading()
+            //     :
+                 Text(
                     "Submit",
                     style: GoogleFonts.robotoFlex(
                       fontSize: 14.sp,
@@ -76,20 +61,19 @@ class SubmitButton extends StatelessWidget {
               } else if (departure == null) {
                 toast("Departure Date is required");
               } else {
-                context.read<VisitorsBloc>().add(AddVisitorEvent(
-                      phone: visitorPhoneNumber!,
-                      arrival: arrival!,
-                      departure: departure!,
-                      carRegno: '',
-                      reason: '',
-                      destination: '',
-                      visitorName: visitorName!,
-                    ));
+                // context.read<VisitorsBloc>().add(AddVisitorEvent(
+                //       phone: visitorPhoneNumber!,
+                //       arrival: arrival!,
+                //       departure: departure!,
+                //       carRegno: '',
+                //       reason: '',
+                //       destination: '',
+                //       visitorName: visitorName!,
+                //     ));
               }
             },
           ),
         );
-      },
-    );
+     
   }
 }

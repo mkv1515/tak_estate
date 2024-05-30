@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:tak/core/constants/constants.dart';
-import 'package:tak/core/data/models/user_model.dart';
-import 'package:tak/core/services/get_it_services.dart';
 import 'package:tak/core/services/secure_storage.dart';
 import 'package:tak/core/utils/colors.dart';
-import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/core/widgets/tak_cache_network_image.dart';
-import 'package:tak/features/auth/presentation/bloc/auth/auth_bloc.dart';
 
 class TakDrawer extends StatefulWidget {
   const TakDrawer({super.key});
@@ -22,7 +16,7 @@ class TakDrawer extends StatefulWidget {
 }
 
 class _TakDrawerState extends State<TakDrawer> {
-  SecureStorage secureStorage = getIt<SecureStorage>();
+  SecureStorage secureStorage = SecureStorage();
   String username = "";
   String avatar = imageplaceholder;
   int rating = 0;
@@ -38,10 +32,9 @@ class _TakDrawerState extends State<TakDrawer> {
   }
 
   _getUserData() async {
-    UserModel? usermodel = await secureStorage.getUserData();
     setState(() {
-      username = "${usermodel?.name}";
-      avatar = "${usermodel?.avatar}";
+      // username = "${usermodel?.name}";
+      // avatar = "${usermodel?.avatar}";
     });
   }
 
@@ -149,7 +142,7 @@ class _TakDrawerState extends State<TakDrawer> {
 
                   ListTile(
                     onTap: () async {
-                      await context.push("/profile");
+                      // await context.push("/profile");
                       drawerAction();
                     },
                     title: Text(
@@ -161,7 +154,7 @@ class _TakDrawerState extends State<TakDrawer> {
 
                   ListTile(
                     onTap: () async {
-                      await context.push("/referral");
+                      // await context.push("/referral");
                       drawerAction();
                     },
                     title: Text(
@@ -173,7 +166,7 @@ class _TakDrawerState extends State<TakDrawer> {
 
                   ListTile(
                     onTap: () async {
-                      context.push("/help-center");
+                      //  context.push("/help-center");
                       drawerAction();
                     },
                     title: Text(
@@ -185,7 +178,7 @@ class _TakDrawerState extends State<TakDrawer> {
 
                   ListTile(
                     onTap: () async {
-                      await context.push("/settings");
+                      //  await context.push("/settings");
                       drawerAction();
                     },
                     title: Text(
@@ -196,7 +189,9 @@ class _TakDrawerState extends State<TakDrawer> {
                   ),
 
                   ListTile(
-                    onTap: () => context.push("/about"),
+                    onTap: () {
+                      //context.push("/about");
+                    },
                     title: Text(
                       'About',
                       style: Theme.of(context).listTileTheme.titleTextStyle,
@@ -204,19 +199,10 @@ class _TakDrawerState extends State<TakDrawer> {
                     leading: const HeroIcon(HeroIcons.exclamationCircle),
                   ),
 
-                  BlocListener<AuthBloc, AuthState>(
-                    listener: (context, state) {
-                      if (state is UnAuthenticatedState) {
-                        context.go("/getstarted");
-                      }
-                      //error
-                      if (state is ErrorAuthState) {
-                        toast(state.message);
-                      }
-                    },
-                    child: ListTile(
+
+                  ListTile(
                       onTap: () {
-                        context.read<AuthBloc>().add(LogoutEvent());
+                       // context.read<AuthBloc>().add(LogoutEvent());
                       },
                       title: Text(
                         'Logout',
@@ -228,7 +214,32 @@ class _TakDrawerState extends State<TakDrawer> {
                       ),
                       leading: const HeroIcon(HeroIcons.lockOpen),
                     ),
-                  ),
+
+                  // BlocListener<AuthBloc, AuthState>(
+                  //   listener: (context, state) {
+                  //     if (state is UnAuthenticatedState) {
+                  //       context.go("/getstarted");
+                  //     }
+                  //     //error
+                  //     if (state is ErrorAuthState) {
+                  //       toast(state.message);
+                  //     }
+                  //   },
+                  //   child: ListTile(
+                  //     onTap: () {
+                  //       context.read<AuthBloc>().add(LogoutEvent());
+                  //     },
+                  //     title: Text(
+                  //       'Logout',
+                  //       style: GoogleFonts.robotoFlex(
+                  //         color: primaryColor,
+                  //         fontSize: 20.sp,
+                  //         fontWeight: FontWeight.w500,
+                  //       ),
+                  //     ),
+                  //     leading: const HeroIcon(HeroIcons.lockOpen),
+                  //   ),
+                  // ),
                 ],
               )
             ],

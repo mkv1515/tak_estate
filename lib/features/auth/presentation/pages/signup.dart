@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/widgets/tak_email_field.dart';
 import 'package:tak/features/auth/presentation/widgets/already_have_account.dart';
@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          onTap: () => context.pop(),
+          onTap: () => Get.back(),
           child: IconTheme(
             data: Theme.of(context).iconTheme,
             child: Icon(

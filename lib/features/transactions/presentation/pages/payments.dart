@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:intl/intl.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
-import 'package:tak/features/transactions/presentation/bloc/transaction_bloc.dart';
 import 'package:tak/features/transactions/presentation/widgets/payment_widget.dart';
 
 class Payments extends StatefulWidget {
@@ -25,9 +23,9 @@ class _PaymentsState extends State<Payments> {
     DateTime startDateYear = now.subtract(const Duration(days: 365));
     endDate = DateFormat('yyyy-MM-dd').format(now);
     startDate = DateFormat('yyyy-MM-dd').format(startDateYear);
-    context
-        .read<TransactionBloc>()
-        .add(PaymentTransactionFetch(startDate: '', endDate: ''));
+    // context
+    //     .read<TransactionBloc>()
+    //     .add(PaymentTransactionFetch(startDate: '', endDate: ''));
     super.initState();
   }
 
@@ -131,9 +129,9 @@ class _PaymentsState extends State<Payments> {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        context.read<TransactionBloc>().add(
-                            PaymentTransactionFetch(
-                                startDate: startDate, endDate: endDate));
+                        // context.read<TransactionBloc>().add(
+                        //     PaymentTransactionFetch(
+                        //         startDate: startDate, endDate: endDate));
                       },
                       child: Container(
                         height: 65.h,

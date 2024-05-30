@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:intl/intl.dart';
-import 'package:tak/core/services/get_it_services.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
-import 'package:tak/features/transactions/presentation/bloc/transaction_bloc.dart';
 import 'package:tak/features/transactions/presentation/widgets/invoice_transaction_widget.dart';
 import 'package:tak/features/transactions/presentation/widgets/payment_transaction_widget.dart';
 
@@ -32,10 +29,7 @@ class _RentTransactionsState extends State<RentTransactions> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TransactionBloc>(
-      create: (context) => getIt<TransactionBloc>()
-        ..add(RentTransactionFetch(startDate: '', endDate: '')),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text(
             'Rents',
@@ -134,12 +128,14 @@ class _RentTransactionsState extends State<RentTransactions> {
                     Expanded(
                       child: Builder(builder: (context) {
                         return GestureDetector(
-                          onTap: () => context.read<TransactionBloc>().add(
-                                RentTransactionFetch(
-                                  startDate: startDate,
-                                  endDate: endDate,
-                                ),
-                              ),
+                          onTap: (){
+                          //  context.read<TransactionBloc>().add(
+                          //       RentTransactionFetch(
+                          //         startDate: startDate,
+                          //         endDate: endDate,
+                          //       ),
+                          //     ),
+                      },
                           child: Container(
                             height: 65.h,
                             margin: EdgeInsets.only(left: 8.w, right: 8.w),
@@ -203,7 +199,7 @@ class _RentTransactionsState extends State<RentTransactions> {
             ],
           ),
         ),
-      ),
+      
     );
   }
 }

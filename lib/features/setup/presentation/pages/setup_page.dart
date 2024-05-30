@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/core/widgets/tak_along_loading.dart';
 import 'package:tak/features/setup/domain/entities/account_select_entity.dart';
-import 'package:tak/features/setup/presentation/bloc/setup_bloc.dart';
 
 class SetupPage extends StatefulWidget {
   final PageController pageController;
@@ -105,76 +102,61 @@ class _SetupPageState extends State<SetupPage> {
                         height: 40.h,
                       ),
                     ),
-                    BlocConsumer<SetUpBloc, SetupState>(
-                      listener: (context, state) {
-                        if (state is SetupErrorState) {
-                          toast(state.message);
-                          if (state.message == "unauthenticated") {
-                            signout(context);
-                          }
-                        }
-                        if (state is SetupLoadedState) {
-                          AccountSelectEntity selectEntity =
-                              state.accountSelectEntity;
-                          if (selectEntity.status) {
-                            context.go("/security");
-                          }
-                        }
-                      },
-                      builder: (context, state) {
-                        return Container(
-                          margin: EdgeInsets.only(
-                            top: 33.h,
-                            bottom: 33.h,
-                          ),
-                          width: 358.w,
-                          height: 52.h,
-                          child: TextButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  side: const BorderSide(
-                                    color: primaryColor,
-                                  ),
-                                ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 33.h,
+                        bottom: 33.h,
+                      ),
+                      width: 358.w,
+                      height: 52.h,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                              side: const BorderSide(
+                                color: primaryColor,
                               ),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  primaryColor),
                             ),
-                            child: state is SetupLoadingState
-                                ? const TakLoading()
-                                : Text(
-                                    "Continue",
-                                    style: GoogleFonts.robotoFlex(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: white,
-                                    ),
-                                  ),
-                            onPressed: () {
-                              if (selectedValue != null) {
-                                if (selectedValue == "Security") {
-                                  context.read<SetUpBloc>().add(
-                                        AccountSelectSetupEvent(
-                                          role: selectedValue!,
-                                          status: "submitted",
-                                        ),
-                                      );
-                                } else {
-                                  widget.pageController.nextPage(
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.easeInOut,
-                                  );
-                                }
-                              } else {
-                                toast("You must select your role");
-                              }
-                            },
                           ),
-                        );
-                      },
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(primaryColor),
+                        ),
+                        child:
+
+                            // state is SetupLoadingState
+                            //     ? const TakLoading()
+                            //     :
+
+                            Text(
+                          "Continue",
+                          style: GoogleFonts.robotoFlex(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                            color: white,
+                          ),
+                        ),
+                        onPressed: () {
+                          if (selectedValue != null) {
+                            if (selectedValue == "Security") {
+                              // context.read<SetUpBloc>().add(
+                              //       AccountSelectSetupEvent(
+                              //         role: selectedValue!,
+                              //         status: "submitted",
+                              //       ),
+                              //     );
+                            } else {
+                              widget.pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            }
+                          } else {
+                            toast("You must select your role");
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),

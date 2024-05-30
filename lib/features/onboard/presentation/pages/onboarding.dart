@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onboarding_slider_flutter/onboarding_slider_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +59,9 @@ class _OnboardingState extends State<Onboarding> {
                     0xfffdfdfd,
                   )),
             ),
-            onPressed: () => context.pushReplacement("/getstarted"),
+            onPressed: () {
+             // context.pushReplacement("/getstarted");
+            },
           ),
         ),
         decoration: BoxDecoration(

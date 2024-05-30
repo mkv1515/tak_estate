@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import 'package:tak/core/error/failure.dart';
-import 'package:tak/core/services/get_it_services.dart';
-import 'package:tak/core/services/secure_storage.dart';
-
 void toast(String msg) {
   Fluttertoast.showToast(
     msg: msg,
@@ -24,26 +20,26 @@ String formatDuration(Duration duration) {
   return "$twoDigitMinutes:$twoDigitSeconds";
 }
 
-String mapFailureToMessage(Failure failure) {
-  switch (failure.runtimeType) {
-    case ServerFailure:
-      return failure.message;
-    case CacheFailure:
-      return failure.message;
-    case UnauthFailure:
-      return failure.message;
-    case NetworkFailure:
-      return failure.message;
-    default:
-      return "Unexpected Error , Please try again later .";
-  }
-}
+// String mapFailureToMessage(Failure failure) {
+//   switch (failure.runtimeType) {
+//     case ServerFailure:
+//       return failure.message;
+//     case CacheFailure:
+//       return failure.message;
+//     case UnauthFailure:
+//       return failure.message;
+//     case NetworkFailure:
+//       return failure.message;
+//     default:
+//       return "Unexpected Error , Please try again later .";
+//   }
+// }
 
-void signout(context) {
-  SecureStorage secureStorage = getIt<SecureStorage>();
-  secureStorage.clearAll();
-  context.push("/login");
-}
+// void signout(context) {
+//   SecureStorage secureStorage = getIt<SecureStorage>();
+//   secureStorage.clearAll();
+//   context.push("/login");
+// }
 
 Future<DateTime?> getDate(context) async {
   DateTime? dateTime = await showDatePicker(

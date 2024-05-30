@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -9,10 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/constants/constants.dart';
 import 'package:tak/core/data/models/user_model.dart';
-import 'package:tak/core/services/get_it_services.dart';
 import 'package:tak/core/services/secure_storage.dart';
 import 'package:tak/core/widgets/tak_cache_network_image.dart';
-import 'package:tak/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:tak/features/profile/presentation/widgets/profile_gender.dart';
 import 'package:tak/features/profile/presentation/widgets/profile_logout.dart';
 import 'package:tak/features/profile/presentation/widgets/profile_name.dart';
@@ -30,7 +27,7 @@ class _ProfileState extends State<Profile> {
   TextEditingController nameController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  SecureStorage secureStorage = getIt<SecureStorage>();
+  SecureStorage secureStorage = SecureStorage();
   String name = "";
   String? phone = "";
   String? gender = "";
@@ -69,9 +66,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileBloc>(
-      create: (BuildContext context) => getIt<ProfileBloc>(),
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title: const Text(
             'Profile',
@@ -128,11 +123,11 @@ class _ProfileState extends State<Profile> {
                             onTap: () {
                               openImagePicker().then((value) {
                                 if (value != null) {
-                                  context.read<ProfileBloc>().add(
-                                        ProfileUpdateImageEvent(
-                                          path: value.path,
-                                        ),
-                                      );
+                                  // context.read<ProfileBloc>().add(
+                                  //       ProfileUpdateImageEvent(
+                                  //         path: value.path,
+                                  //       ),
+                                  //     );
                                 } else {
                                   setState(() {
                                     userAvatar = null;
@@ -196,7 +191,7 @@ class _ProfileState extends State<Profile> {
             ],
           ),
         ),
-      ),
+
     );
   }
 }

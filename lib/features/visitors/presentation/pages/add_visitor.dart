@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:tak/core/services/get_it_services.dart';
-import 'package:tak/features/visitors/presentation/bloc/visitors_bloc.dart';
 import 'package:tak/features/visitors/presentation/widgets/date_arrival.dart';
 import 'package:tak/features/visitors/presentation/widgets/phone_field.dart';
 import 'package:tak/features/visitors/presentation/widgets/submit_button.dart';
@@ -42,9 +39,7 @@ class _AddVisitorState extends State<AddVisitor> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<VisitorsBloc>(
-      create: (context) => getIt<VisitorsBloc>(),
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title: const Text(
             'New Visitor',
@@ -86,7 +81,7 @@ class _AddVisitorState extends State<AddVisitor> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

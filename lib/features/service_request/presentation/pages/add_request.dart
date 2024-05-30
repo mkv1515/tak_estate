@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:tak/core/services/get_it_services.dart';
-import 'package:tak/features/service_request/presentation/bloc/service_request_bloc.dart';
 import 'package:tak/features/service_request/presentation/widgets/checkbox_location.dart';
 import 'package:tak/features/service_request/presentation/widgets/description_field.dart';
 import 'package:tak/features/service_request/presentation/widgets/maintenance_checkbox.dart';
@@ -37,9 +34,7 @@ class _AddRequestState extends State<AddRequest> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ServiceRequestBloc>(
-      create: (_) => getIt<ServiceRequestBloc>(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text(
             'New Service Request',
@@ -122,7 +117,7 @@ class _AddRequestState extends State<AddRequest> {
             ),
           ),
         ),
-      ),
+     
     );
   }
 }

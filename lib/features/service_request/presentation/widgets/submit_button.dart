@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/core/widgets/tak_along_loading.dart';
-import 'package:tak/features/service_request/presentation/bloc/service_request_bloc.dart';
 
 class SubmitButton extends StatelessWidget {
   final String? name;
@@ -29,21 +26,7 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ServiceRequestBloc, ServiceRequestState>(
-      listener: (context, state) {
-        if (state is ServiceRequestLoadedState) {
-          toast(state.serviceRequestEntity.message);
-          if (state.serviceRequestEntity.status) {
-            context.pop();
-          }
-        }
-        if (state is ServiceRequestErrorState) {
-          toast(state.message);
-          if (state.message == "unauthenticated") signout(context);
-        }
-      },
-      builder: (context, state) {
-        return Container(
+    return Container(
           margin: EdgeInsets.only(
             left: 16.w,
             right: 16.w,
@@ -62,9 +45,11 @@ class SubmitButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
             ),
-            child: state is ServiceRequestLoadingState
-                ? const TakLoading()
-                : Text(
+            child:
+            // state is ServiceRequestLoadingState
+            //     ? const TakLoading()
+            //     :
+                Text(
                     "Submit",
                     style: GoogleFonts.robotoFlex(
                       fontSize: 14.sp,
@@ -92,22 +77,22 @@ class SubmitButton extends StatelessWidget {
                     return;
                   }
                 }
-                context.read<ServiceRequestBloc>().add(
-                      AddServiceRequestEvent(
-                        description: description!,
-                        name: name!,
-                        priority: priority!,
-                        houseId: houseId,
-                        section: section!,
-                        maintenance: maintenance,
-                        location: location,
-                      ),
-                    );
+                // context.read<ServiceRequestBloc>().add(
+                //       AddServiceRequestEvent(
+                //         description: description!,
+                //         name: name!,
+                //         priority: priority!,
+                //         houseId: houseId,
+                //         section: section!,
+                //         maintenance: maintenance,
+                //         location: location,
+                //       ),
+                //     );
               }
             },
           ),
-        );
-      },
+       
+
     );
   }
 }

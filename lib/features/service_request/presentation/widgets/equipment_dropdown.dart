@@ -1,10 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:tak/features/service_request/domain/entities/equipment_entity.dart';
-import 'package:tak/features/service_request/presentation/bloc/service_request_bloc.dart';
 
 class EquipmentDropdown extends StatefulWidget {
   final Function callback;
@@ -27,12 +25,7 @@ class _EquipmentDropdownState extends State<EquipmentDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
-      builder: (context, state) {
-        if (state is EquipmentRequestLoadedState) {
-          equipments = state.equipmentEntity;
-        }
-        return Container(
+    return Container(
           margin: EdgeInsets.only(left: 16.w, right: 16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,8 +81,8 @@ class _EquipmentDropdownState extends State<EquipmentDropdown> {
               ),
             ],
           ),
-        );
-      },
+        
+
     );
   }
 }

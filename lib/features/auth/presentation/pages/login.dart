@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:tak/core/widgets/tak_along_or_text.dart';
+import 'package:get/get.dart';
 import 'package:tak/core/widgets/tak_email_field.dart';
 import 'package:tak/core/widgets/tak_password_field.dart';
-import 'package:tak/core/widgets/tak_social_buttons.dart';
 import 'package:tak/features/auth/presentation/widgets/dont_have_an_account.dart';
 import 'package:tak/features/auth/presentation/widgets/login_account_button.dart';
 
@@ -35,7 +33,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          onTap: () => context.pop(),
+          onTap: () => Get.back(),
           child: IconTheme(
             data: Theme.of(context).iconTheme,
             child: Icon(

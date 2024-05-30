@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/extensions.dart';
 import 'package:tak/core/utils/helpers.dart';
@@ -14,13 +13,16 @@ class TransactionWidgetCredit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push(
-        "/transaction-details",
-        extra: {
-          "type": "payment",
-          "payment": payment,
-        },
-      ),
+      onTap: () {
+//context.push(
+      //   "/transaction-details",
+      //   extra: {
+      //     "type": "payment",
+      //     "payment": payment,
+      //   },
+      // ),
+
+      },
       child: Container(
         width: 358.w,
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/core/utils/colors.dart';
@@ -7,7 +6,6 @@ import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/core/widgets/tak_along_loading.dart';
 import 'package:tak/features/profile/domain/entities/profile_entity.dart';
 import 'package:tak/features/profile/domain/entities/profile_photo_entity.dart';
-import 'package:tak/features/profile/presentation/bloc/profile_bloc.dart';
 
 class UpdateProfileButton extends StatelessWidget {
   final String name;
@@ -22,28 +20,16 @@ class UpdateProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileBloc, ProfileState>(listener: (context, state) {
-      if (state is ProfileErrorState) {
-        toast(state.message);
-        if (state.message == "unauthenticated") signout(context);
-      }
-      if (state is ProfileUpdateState) {
-        ProfileEntity profileEntity = state.profileEntity;
-        toast(profileEntity.message);
-      }
-
-      if (state is ProfilePhotoUpdateState) {
-        ProfilePhototEntity profileEntity = state.photoEntity;
-        toast(profileEntity.message);
-      }
-    }, builder: (context, state) {
-      return Container(
+    return Container(
         margin: EdgeInsets.only(
           top: 40.h,
         ),
         width: 358.w,
         height: 52.h,
         child: TextButton(
+          onPressed: () {
+
+          },
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
@@ -55,9 +41,12 @@ class UpdateProfileButton extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
           ),
-          child: state is ProfileLoadingState
-              ? const TakLoading()
-              : Text(
+          child:
+
+          // state is ProfileLoadingState
+          //     ? const TakLoading()
+          //     :
+              Text(
                   "Update Profile",
                   style: GoogleFonts.robotoFlex(
                     fontSize: 14.sp,
@@ -65,20 +54,17 @@ class UpdateProfileButton extends StatelessWidget {
                     color: white,
                   ),
                 ),
-          onPressed: () async {
-            if (state is ProfileLoadingState) {
-            } else {
-              context.read<ProfileBloc>().add(
-                    ProfileUpdateEvent(
-                      name: name,
-                      gender: gender,
-                      telephone: phone,
-                    ),
-                  );
-            }
-          },
-        ),
-      );
-    });
+          // onPressed: () async {
+          //   if (state is ProfileLoadingState) {
+          //   } else {
+          //     context.read<ProfileBloc>().add(
+          //           ProfileUpdateEvent(
+          //             name: name,
+          //             gender: gender,
+          //             telephone: phone,
+          //           ),
+          //         );
+
+    ));
   }
 }

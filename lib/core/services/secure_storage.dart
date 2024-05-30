@@ -7,16 +7,6 @@ import 'package:tak/features/auth/data/models/auth_model.dart';
 class SecureStorage {
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  Future<bool> isAuthenticated() async {
-    bool isTokenSaved = await isTokenSave();
-    AuthModel? auth = await getAuthData();
-    if (auth == null) return false;
-    if (!isTokenSaved ||
-        auth.expiresIn > DateTime.now().millisecondsSinceEpoch) {
-      return false;
-    }
-    return true;
-  }
 
   Future<void> saveToken(String token) async {
     await _storage.write(key: 'jwt', value: token);

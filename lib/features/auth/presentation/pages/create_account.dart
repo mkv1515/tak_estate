@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tak/core/widgets/tak_along_or_text.dart';
 import 'package:tak/core/widgets/tak_full_name_field.dart';
 import 'package:tak/core/widgets/tak_password_field.dart';
-import 'package:tak/core/widgets/tak_social_buttons.dart';
 import 'package:tak/features/auth/presentation/widgets/already_have_account.dart';
 import 'package:tak/features/auth/presentation/widgets/create_account_button.dart';
 

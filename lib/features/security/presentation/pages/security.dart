@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/core/constants/constants.dart';
 import 'package:tak/core/data/models/user_model.dart';
-import 'package:tak/core/services/get_it_services.dart';
 import 'package:tak/core/services/secure_storage.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/extensions.dart';
 import 'package:tak/core/widgets/tak_cache_network_image.dart';
-import 'package:tak/features/security/presentation/bloc/security_bloc.dart';
 import 'package:tak/features/security/presentation/widgets/security_visitor_widget.dart';
 
 class Security extends StatefulWidget {
@@ -21,7 +17,7 @@ class Security extends StatefulWidget {
 }
 
 class _SecurityState extends State<Security> {
-  SecureStorage secureStorage = getIt<SecureStorage>();
+  SecureStorage secureStorage = SecureStorage();
   String avatar = imageplaceholder;
   String name = "";
   String role = "";
@@ -36,30 +32,28 @@ class _SecurityState extends State<Security> {
   _getUserData() async {
     UserModel? usermodel = await secureStorage.getUserData();
     setState(() {
-      name = "${usermodel?.name}".inCaps;
-      avatar = usermodel?.avatar ?? imageplaceholder;
-      role = "${usermodel?.role}".inCaps;
-      status = "${usermodel?.status}";
+      // name = "${usermodel?.name}".inCaps;
+      // avatar = usermodel?.avatar ?? imageplaceholder;
+      // role = "${usermodel?.role}".inCaps;
+      // status = "${usermodel?.status}";
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SecurityBloc>(
-      create: (context) => getIt<SecurityBloc>()..add(FetchVisitorsEvent()),
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           actions: [
             IconButton(
               onPressed: () {
-                context.push("/settings").then((value) => _getUserData());
+               // context.push("/settings").then((value) => _getUserData());
               },
               icon: const Icon(Icons.settings),
             ),
           ],
           leading: GestureDetector(
             onTap: () {
-              context.push("/profile").then((value) => _getUserData());
+              //context.push("/profile").then((value) => _getUserData());
             },
             child: Padding(
               padding: EdgeInsets.all(12.w),
@@ -75,7 +69,9 @@ class _SecurityState extends State<Security> {
             ),
           ),
           title: GestureDetector(
-            onTap: () => context.push("/profile"),
+            onTap: () {
+              //context.push("/profile");
+              },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,7 +124,7 @@ class _SecurityState extends State<Security> {
             ],
           ),
         ),
-      ),
+
     );
   }
 }

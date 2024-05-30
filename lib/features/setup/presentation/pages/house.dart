@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/core/utils/colors.dart';
-import 'package:tak/core/utils/helpers.dart';
-import 'package:tak/core/widgets/tak_along_loading.dart';
-import 'package:tak/features/setup/domain/entities/account_select_entity.dart';
 import 'package:tak/features/setup/domain/entities/house_entity.dart';
 
-import 'package:tak/features/setup/presentation/bloc/setup_bloc.dart';
 
 class HousesPage extends StatefulWidget {
   const HousesPage({super.key});
@@ -22,31 +16,8 @@ class _HousesPageState extends State<HousesPage> {
   int? picked;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SetUpBloc, SetupState>(
-      buildWhen: (prev, current) {
-        return current is SetupLoadingState ||
-            current is FetchHousesLoadedState;
-      },
-      listener: (context, state) {
-        if (state is SetupErrorState) {
-          toast(state.message);
-          if (state.message == "unauthenticated") signout(context);
-        }
-        if (state is SetupLoadedState) {
-          AccountSelectEntity selectEntity = state.accountSelectEntity;
-          if (selectEntity.status) {
-            context.go("/nav");
-          }
-        }
-      },
-      builder: (context, state) {
-        if (state is SetupLoadingState) {
-          return TakLoading(
-            color:
-                Theme.of(context).brightness == Brightness.dark ? white : dark,
-          );
-        } else if (state is FetchHousesLoadedState) {
-          List<HousesEntity> housesEntity = state.housesEntity;
+
+          List<HousesEntity> housesEntity = [];
           return Column(
             children: [
               ListView.separated(
@@ -86,9 +57,11 @@ class _HousesPageState extends State<HousesPage> {
                     backgroundColor:
                         MaterialStateProperty.all<Color>(primaryColor),
                   ),
-                  child: state is SetupLoadingState
-                      ? const TakLoading()
-                      : Text(
+                  child:
+                  //  state is SetupLoadingState
+                  //     ? const TakLoading()
+                  //     :
+                      Text(
                           "Submit",
                           style: GoogleFonts.robotoFlex(
                             fontSize: 14.sp,
@@ -97,22 +70,19 @@ class _HousesPageState extends State<HousesPage> {
                           ),
                         ),
                   onPressed: () {
-                    context.read<SetUpBloc>().add(
-                          AccountSelectHouseEvent(
-                            houseId: picked.toString(),
-                            status: "submitted",
-                            role: "tenant",
-                          ),
-                        );
+                    // context.read<SetUpBloc>().add(
+                    //       AccountSelectHouseEvent(
+                    //         houseId: picked.toString(),
+                    //         status: "submitted",
+                    //         role: "tenant",
+                    //       ),
+                    //     );
                   },
                 ),
               )
             ],
-          );
-        } else {
-          return const Text("There was an Error");
-        }
-      },
+
+
     );
   }
 }

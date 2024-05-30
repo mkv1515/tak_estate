@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:tak/core/services/get_it_services.dart';
-
-import 'package:tak/features/setup/presentation/bloc/setup_bloc.dart';
 import 'package:tak/features/setup/presentation/pages/house.dart';
 import 'package:tak/features/setup/presentation/pages/setup_page.dart';
 
@@ -19,9 +15,7 @@ class _SetUpState extends State<SetUp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SetUpBloc>(
-      create: (context) => getIt<SetUpBloc>()..add(FetchHousesEvent()),
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title: const Text("Account setup"),
         ),
@@ -33,7 +27,7 @@ class _SetUpState extends State<SetUp> {
             const HousesPage(),
           ],
         ),
-      ),
+    
     );
   }
 }
