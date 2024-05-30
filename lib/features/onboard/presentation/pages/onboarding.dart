@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onboarding_slider_flutter/onboarding_slider_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tak/core/constants/constants.dart';
 import 'package:tak/core/utils/colors.dart';
+import 'package:tak/features/onboard/presentation/pages/get_started.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -60,7 +62,8 @@ class _OnboardingState extends State<Onboarding> {
                   )),
             ),
             onPressed: () {
-             // context.pushReplacement("/getstarted");
+              // context.pushReplacement("/getstarted");
+              Get.to(() => const GetStarted());
             },
           ),
         ),

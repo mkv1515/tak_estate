@@ -31,23 +31,23 @@ const LinearGradient onboardGradiant = LinearGradient(
 
 final List<OnBoardModel> onBoardData = [
   const OnBoardModel(
-    title: "Write some heading here",
+    title: "Tak Continental Estate",
     description:
-        "Write some some content here, this is a sample text which i wrote here",
+        "Is a blend of comfort, luxury and class. 11, Aliyu Mohammed Crescent Life Cam, Abuja",
     image: onboardingCarousel1,
   ),
-  const OnBoardModel(
-    title: "Write some heading here",
-    description:
-        "Write some some content here, this is a sample text which i wrote here",
-    image: onboardingCarousel1,
-  ),
-  const OnBoardModel(
-    title: "Write some heading here",
-    description:
-        "Write some some content here, this is a sample text which i wrote here",
-    image: onboardingCarousel1,
-  ),
+  // const OnBoardModel(
+  //   title: "Write some heading here",
+  //   description:
+  //       "Write some some content here, this is a sample text which i wrote here",
+  //   image: onboardingCarousel1,
+  // ),
+  // const OnBoardModel(
+  //   title: "Write some heading here",
+  //   description:
+  //       "Write some some content here, this is a sample text which i wrote here",
+  //   image: onboardingCarousel1,
+  // ),
 ];
 
 const List<String> imgList = [

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tak/core/utils/colors.dart';
+import 'package:tak/features/auth/presentation/pages/login.dart';
 
 class AlreadyHaveAnAccount extends StatelessWidget {
   const AlreadyHaveAnAccount({super.key});
@@ -15,6 +17,7 @@ class AlreadyHaveAnAccount extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           //context.push("/login");
+          Get.off(() => const Login());
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../core/utils/colors.dart';
+import 'package:tak/core/utils/colors.dart';
 
 class AppAppBarTheme {
   static AppBarTheme lightAppBarTheme() {

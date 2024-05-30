@@ -3,9 +3,10 @@ import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'utils/theme/theme.dart';
+import 'config/theme/theme.dart';
+import 'features/onboard/presentation/pages/onboarding.dart';
 
-main() {
+Future<void> main()  async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -32,10 +33,7 @@ class TakEstate extends StatelessWidget {
           title: 'Tak Estate',
           debugShowCheckedModeBanner: false,
           builder: InAppNotifications.init(), // BotToastInit(),
-          home: Container(
-            color: Colors.amber,
-            child: const Center(child: Text("Hello World")),
-          ),
+          home: const Onboarding(),
         );
       },
     );

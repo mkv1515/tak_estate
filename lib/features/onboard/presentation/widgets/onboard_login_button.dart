@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tak/core/utils/colors.dart';
+import 'package:tak/features/auth/presentation/pages/login.dart';
 
 class OnBoardLoginButton extends StatelessWidget {
   const OnBoardLoginButton({super.key});
@@ -35,7 +37,8 @@ class OnBoardLoginButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-        //  context.push("/login");
+          //  context.push("/login");
+          Get.to(() => const Login());
         },
       ),
     );

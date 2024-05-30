@@ -2,10 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../core/utils/colors.dart';
-import 'appbar_theme.dart';
-import 'text_theme.dart';
+import 'package:tak/config/theme/appbar_theme.dart';
+import 'package:tak/config/theme/text_theme.dart';
+import 'package:tak/core/utils/colors.dart';
 
 class AppTheme {
   AppTheme._();
