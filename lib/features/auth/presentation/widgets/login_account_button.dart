@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tak/controllers/auth.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
-
 
 class LoginAccountButton extends StatelessWidget {
   final String password;
@@ -16,6 +17,8 @@ class LoginAccountButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(Auth());
+
     // return BlocConsumer<AuthBloc, AuthState>(
     //   listener: (context, state) {
     //     if (state is ErrorAuthState) {
@@ -64,6 +67,7 @@ class LoginAccountButton extends StatelessWidget {
             toast("Password must be greater than 8 characters");
           } else {
             if (email != "" || password != "") {
+              controller.loginUser(email, password);
               // context.read<AuthBloc>().add(
               //       LoginEvent(
               //         email: email,

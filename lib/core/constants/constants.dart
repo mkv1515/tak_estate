@@ -6,7 +6,7 @@ import 'package:tak/core/constants/assets.dart';
 /// App Constants
 ///
 
-const endpoint = "https://api.walteredmundsltd.com/api/v1/";
+const baseUrl = "https://api.walteredmundsltd.com/api/v1/";
 
 const paystackInitializeEndpoint =
     "https://api.paystack.co/transaction/initialize";
@@ -56,3 +56,7 @@ const List<String> imgList = [
   'https://api.walteredmundsltd.com/images/slider3.jpg',
   'https://api.walteredmundsltd.com/images/slider4.jpg',
 ];
+
+//Error Messages
+const String noInternetTxt = "No internet connection. Please try again later.";
+const messageTxt = "Email or password is invalid";
