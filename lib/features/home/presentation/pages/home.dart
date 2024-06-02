@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tak/controllers/auth_controller.dart';
 import 'package:tak/core/constants/constants.dart';
-import 'package:tak/core/data/models/user_model.dart';
 import 'package:tak/core/domain/entities/tenant_house_entity.dart';
 import 'package:tak/core/services/secure_storage.dart';
 import 'package:tak/core/utils/colors.dart';
@@ -16,6 +17,9 @@ import 'package:tak/features/home/presentation/widgets/service_request_widget.da
 import 'package:tak/features/home/presentation/widgets/visitors_widget.dart';
 import 'package:tak/features/transactions/presentation/widgets/rent_balance_widget.dart';
 import 'package:tak/features/transactions/presentation/widgets/service_balance_widget.dart';
+
+import '../../../profile/presentation/pages/profile.dart';
+import '../../../settings/presentation/pages/settings.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -32,73 +36,88 @@ class _HomeState extends State<Home> {
   String status = "";
   String houseId = '';
   TenantHouseEntity? tenantHouseEntity;
+
   @override
   void initState() {
     super.initState();
-   // context.read<AuthBloc>().add(MeEvent());
+    // context.read<AuthBloc>().add(MeEvent());
     _getUserData();
 
     //context.read<TransactionBloc>().add(BalanceTransactionFetch());
   }
 
   _getUserData() async {
-    UserModel? usermodel = await secureStorage.getUserData();
-    setState(() {
-      name = "${usermodel?.name}".inCaps;
-      avatar = usermodel?.avatar ?? imageplaceholder;
-      role = "${usermodel?.role}".inCaps;
-      status = "${usermodel?.status}";
-      houseId = "${usermodel?.tenantHouse?.houseId}";
-      tenantHouseEntity = usermodel?.tenantHouse;
-    });
+    final controller = Get.put(AuthController());
+    controller.getUserData();
+
+    name = "${controller.userProfile.value?.name.toString()}".inCaps;
+    avatar =
+        controller.userProfile.value?.avatar.toString() ?? imageplaceholder;
+    role = "${controller.userProfile.value?.role.toString()}".inCaps;
+    status = "${controller.userProfile.value?.status.toString()}";
+    houseId =
+        "${controller.userProfile.value?.tenantHouse?.houseId.toString()}";
+    tenantHouseEntity = controller.userProfile.value?.tenantHouse;
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AuthController());
+    //controller.getUserData();
+
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: ()
-                 {
-                   //context.push("/settings").then((value) => _getUserData());
-                 },
-              icon: const Icon(Icons.settings),
-            ),
-          ],
-          leading: GestureDetector(
-            onTap: () {
-                //context.push("/profile").then((value) => _getUserData()),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              //context.push("/settings").then((value) => _getUserData());
+              Get.to(() => Settings(
+                    userModel: controller.userProfile.value,
+                  ));
             },
-            child: Padding(
-              padding: EdgeInsets.all(12.w),
-              child: TakCachedNetworkImage(
-                path: avatar,
-                width: 20,
-                height: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.r),
-                ),
-                fit: BoxFit.fill,
+            icon: const Icon(Icons.settings),
+          ),
+        ],
+        leading: GestureDetector(
+          onTap: () {
+            //context.push("/profile").then((value) => _getUserData()),
+            Get.to(() => Profile(
+                  userModel: controller.userProfile.value,
+                ));
+          },
+          child: Padding(
+            padding: EdgeInsets.all(12.w),
+            child: TakCachedNetworkImage(
+              // path: controller.userProfile.value?.avatar ?? imageplaceholder,
+              path: imageplaceholder,
+
+              width: 20,
+              height: 20,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100.r),
               ),
+              fit: BoxFit.fill,
             ),
           ),
-          title: GestureDetector(
-            onTap: (){ //context.push("/profile");
-            },
-            child: Column(
+        ),
+        title: GestureDetector(
+          onTap: () {
+            //context.push("/profile");
+          },
+          child: Obx(
+            () => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  name,
+                  "${controller.userProfile.value?.name.toString().inCaps}",
                   style: GoogleFonts.robotoFlex(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 Text(
-                  role,
+                  "${controller.userProfile.value?.role.toString()}".inCaps,
                   style: GoogleFonts.robotoFlex(
                     fontSize: 10.sp,
                     fontWeight: FontWeight.w400,
@@ -108,14 +127,17 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        body: RefreshIndicator(
+      ),
+      body: Obx(
+        () => RefreshIndicator(
           onRefresh: _pullRefresh,
           child: SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.only(left: 8.w, right: 8.w),
               child: Column(
                 children: [
-                  status == "approved"
+                  "${controller.userProfile.value?.status.toString()}" ==
+                          "approved"
                       ? Container()
                       : Container(
                           decoration: BoxDecoration(
@@ -139,12 +161,14 @@ class _HomeState extends State<Home> {
                         ),
                   const CarouselWidget(),
                   Gap(16.h),
-                  HouseBannerWidget(tenantHouseEntity: tenantHouseEntity),
+                  HouseBannerWidget(
+                      tenantHouseEntity:
+                          controller.userProfile.value?.tenantHouse),
                   Gap(16.h),
                   GestureDetector(
                     onTap: () {
                       //context.push('/rent-transactions')
-                    } ,
+                    },
                     child: const RentBalanceWidget(),
                   ),
                   Gap(16.h),
@@ -173,7 +197,7 @@ class _HomeState extends State<Home> {
                         child: GestureDetector(
                           onTap: () {
                             //context.push('/service-requests')
-                          } ,
+                          },
                           child: Text(
                             "See more",
                             textAlign: TextAlign.end,
@@ -189,7 +213,9 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   Gap(16.h),
-                  ServiceRequestWidget(houseId: houseId),
+                  ServiceRequestWidget(
+                      houseId:
+                          "${controller.userProfile.value?.tenantHouse?.houseId.toString()}"),
                   Gap(16.h),
                   Row(
                     children: [
@@ -208,7 +234,6 @@ class _HomeState extends State<Home> {
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-
                             //context.push('/visitors')
                           },
                           child: Text(
@@ -233,12 +258,13 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        floatingActionButton: _getFAB(),
-
+      ),
+      floatingActionButton: _getFAB(),
     );
   }
 
   Future<void> _pullRefresh() async {
+    _getUserData();
     // context.read<AuthBloc>().add(MeEvent());
     // context.read<ServiceRequestBloc>().add(GetServiceRequestsEvent());
     // context.read<VisitorsBloc>().add(GetVisitorsEvent());
@@ -262,7 +288,7 @@ class _HomeState extends State<Home> {
           onTap: () async {
             //await context.push("/add-visitor");
             // ignore: use_build_context_synchronously
-           // context.read<VisitorsBloc>().add(GetVisitorsEvent());
+            // context.read<VisitorsBloc>().add(GetVisitorsEvent());
           },
           label: 'New Vistor',
           labelStyle: TextStyle(
@@ -278,7 +304,7 @@ class _HomeState extends State<Home> {
           onTap: () async {
             //await context.push("/add-request", extra: houseId);
             // ignore: use_build_context_synchronously
-           // context.read<ServiceRequestBloc>().add(GetServiceRequestsEvent());
+            // context.read<ServiceRequestBloc>().add(GetServiceRequestsEvent());
           },
           label: 'Service Request',
           labelStyle: TextStyle(

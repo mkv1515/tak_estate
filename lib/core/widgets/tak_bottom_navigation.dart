@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:heroicons/heroicons.dart';
-
-import 'package:tak/core/widgets/tak_along_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:heroicons/heroicons.dart';
+import 'package:tak/core/widgets/tak_along_drawer.dart';
 import 'package:tak/features/home/presentation/pages/home.dart';
 import 'package:tak/features/messages/presentation/pages/messages.dart';
 import 'package:tak/features/notification/presentation/pages/notifications.dart';
 import 'package:tak/features/transactions/presentation/pages/transactions.dart';
 
+import '../../controllers/auth_controller.dart';
 import '../utils/colors.dart';
 
 List<BottomNavigationBarItem> bottomNavItems = <BottomNavigationBarItem>[
@@ -132,6 +133,8 @@ class _TakBottomNavigationState extends State<TakBottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AuthController());
+    controller.getUserData();
     return Scaffold(
       body: bottomNavScreen.elementAt(currentPageIndex),
       drawer: const Drawer(
