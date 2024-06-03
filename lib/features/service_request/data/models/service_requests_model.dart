@@ -13,6 +13,7 @@ class ServiceRequestsModel {
   String maintenance;
   String phone;
   String email;
+  String status;
   ServiceRequestsModel({
     required this.id,
     required this.created_at,
@@ -25,6 +26,7 @@ class ServiceRequestsModel {
     required this.maintenance,
     required this.phone,
     required this.email,
+    required this.status,
   });
 
   ServiceRequestsModel copyWith({
@@ -39,6 +41,7 @@ class ServiceRequestsModel {
     String? maintenance,
     String? phone,
     String? email,
+    String? status,
   }) {
     return ServiceRequestsModel(
       id: id ?? this.id,
@@ -52,6 +55,7 @@ class ServiceRequestsModel {
       maintenance: maintenance ?? this.maintenance,
       phone: phone ?? this.phone,
       email: email ?? this.email,
+      status: status ?? this.status,
     );
   }
 
@@ -68,6 +72,7 @@ class ServiceRequestsModel {
       'maintenance': maintenance,
       'phone': phone,
       'email': email,
+      'status': status,
     };
   }
 
@@ -84,6 +89,7 @@ class ServiceRequestsModel {
       maintenance: map['maintenance'] as String,
       phone: map['phone'] as String,
       email: map['email'] as String,
+      status: map['status'] as String,
     );
   }
 
@@ -94,7 +100,7 @@ class ServiceRequestsModel {
 
   @override
   String toString() {
-    return 'ServiceRequestsModel(id: $id, created_at: $created_at, description: $description, name: $name, priority: $priority, houseId: $houseId, section: $section, location: $location, maintenance: $maintenance, phone: $phone, email: $email)';
+    return 'ServiceRequestsModel(id: $id, created_at: $created_at, description: $description, name: $name, priority: $priority, houseId: $houseId, section: $section, location: $location, maintenance: $maintenance, phone: $phone, email: $email, status: $status)';
   }
 
   @override
@@ -111,7 +117,8 @@ class ServiceRequestsModel {
         other.location == location &&
         other.maintenance == maintenance &&
         other.phone == phone &&
-        other.email == email;
+        other.email == email &&
+        other.status == status;
   }
 
   @override
@@ -126,6 +133,7 @@ class ServiceRequestsModel {
         location.hashCode ^
         maintenance.hashCode ^
         phone.hashCode ^
-        email.hashCode;
+        email.hashCode ^
+        status.hashCode;
   }
 }

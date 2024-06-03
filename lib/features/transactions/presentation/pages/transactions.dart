@@ -37,6 +37,7 @@ class _TransactionsState extends State<Transactions> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Gap(15),
             GestureDetector(
               onTap: () {
                 // context.push('/rent-transactions').then((value) {

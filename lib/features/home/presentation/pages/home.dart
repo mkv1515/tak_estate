@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/controllers/auth_controller.dart';
 import 'package:tak/controllers/service_request_controller.dart';
+import 'package:tak/controllers/visitor_controller.dart';
 import 'package:tak/core/constants/constants.dart';
 import 'package:tak/core/domain/entities/tenant_house_entity.dart';
 import 'package:tak/core/services/secure_storage.dart';
@@ -69,6 +70,8 @@ class _HomeState extends State<Home> {
     final controller2 = Get.put(ServiceRequestController());
     controller2.getServiceRequest();
 
+    final controller3 = Get.put(VisitorController());
+    controller3.getVisitor();
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -203,7 +206,8 @@ class _HomeState extends State<Home> {
                             //context.push('/service-requests')
                           },
                           child: Text(
-                            "See more",
+                            //"See more",
+                            "",
                             textAlign: TextAlign.end,
                             style: GoogleFonts.robotoFlex(
                               color: primaryColor,
@@ -241,7 +245,8 @@ class _HomeState extends State<Home> {
                             //context.push('/visitors')
                           },
                           child: Text(
-                            "See more",
+                            //"See more",
+                            "",
                             textAlign: TextAlign.end,
                             style: GoogleFonts.robotoFlex(
                               color: primaryColor,
@@ -256,7 +261,7 @@ class _HomeState extends State<Home> {
                   ),
                   Gap(16.h),
                   const VisitorsWidget(),
-                  Gap(16.h),
+                  Gap(100.h),
                 ],
               ),
             ),

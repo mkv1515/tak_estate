@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:logger/web.dart';
 import 'package:tak/core/utils/helpers.dart';
+import 'package:tak/core/widgets/tak_bottom_navigation.dart';
 
 import '../core/constants/constants.dart';
 import '../core/constants/dio_helper.dart';
@@ -34,6 +35,7 @@ class UpdateProfileController extends GetxController {
         if (response.statusCode == 200) {
           Logger().i(data);
           toast("Profile Updated");
+          Get.off(() => const TakBottomNavigation());
         } else {
           Logger().e(response.statusMessage);
         }

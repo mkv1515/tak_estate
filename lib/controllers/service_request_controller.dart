@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:tak/core/widgets/tak_bottom_navigation.dart';
 import 'package:tak/features/service_request/data/models/service_requests_model.dart';
 
 import '../core/constants/constants.dart';
@@ -21,7 +22,6 @@ class ServiceRequestController extends GetxController {
 
   Future<void> getServiceRequest() async {
     final email = controller.userProfile.value?.email;
-    Logger().i(email);
 
     bool isConnected = await _networkManager.isConnected();
     if (isConnected) {
@@ -29,8 +29,8 @@ class ServiceRequestController extends GetxController {
         final response = await clientSupaBase
             .from("ServiceRequest")
             .select()
-            .eq('email', email!);
-        //.order('id', ascending: true);
+            .eq('email', email!)
+            .order('id', ascending: false);
 
         if (response.isEmpty) {
           isEmpty.value = true;
@@ -63,6 +63,16 @@ class ServiceRequestController extends GetxController {
     final phone = controller.userProfile.value?.phone;
     final email = controller.userProfile.value?.email;
 
+//date format
+    DateTime now = DateTime.now();
+    DateFormat formatterspan = DateFormat('yyyy-MM-dd');
+    String datespan = formatterspan.format(now);
+    DateFormat formattertime = DateFormat('hh:mm:ss');
+    String timespan = formattertime.format(now);
+
+    //final arrival = "$datespan $timespan";
+    //final dateNow = "$datespan $timespan";
+
     Logger().i(
         "$description, $name, $priority, $houseId, $section, $maintenance, $location, $phone, $email");
 
@@ -82,7 +92,7 @@ class ServiceRequestController extends GetxController {
         });
         Logger().i("Response: $response");
         toast("Service Request created!");
-        Get.back();
+        Get.off(() => const TakBottomNavigation());
       } on PostgrestException catch (e) {
         Logger().e(e.code);
       } catch (e) {
