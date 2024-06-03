@@ -55,7 +55,7 @@ class AuthController extends GetxController {
         }
         final token = data['data']['access_token'].toString();
         storeValue(valueName: 'token', value: token);
-        Logger().i(data['data']['access_token']);
+        //  Logger().i(data['data']['access_token']);
 
         toast("Loggin Successful.");
         Logger().d("Loggin Successful.");

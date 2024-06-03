@@ -3,12 +3,15 @@ import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'config/theme/theme.dart';
+import 'core/constants/constants.dart';
 import 'features/onboard/presentation/pages/onboarding.dart';
 
-Future<void> main()  async{
+Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   runApp(const TakEstate());
@@ -32,7 +35,8 @@ class TakEstate extends StatelessWidget {
           darkTheme: AppTheme.darkTheme(),
           title: 'Tak Estate',
           debugShowCheckedModeBanner: false,
-          builder: InAppNotifications.init(), // BotToastInit(),
+          builder: InAppNotifications.init(),
+          // BotToastInit(),
           home: const Onboarding(),
         );
       },

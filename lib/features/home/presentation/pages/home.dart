@@ -19,7 +19,9 @@ import 'package:tak/features/transactions/presentation/widgets/rent_balance_widg
 import 'package:tak/features/transactions/presentation/widgets/service_balance_widget.dart';
 
 import '../../../profile/presentation/pages/profile.dart';
+import '../../../service_request/presentation/pages/add_request.dart';
 import '../../../settings/presentation/pages/settings.dart';
+import '../../../visitors/presentation/pages/add_visitor.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -36,6 +38,7 @@ class _HomeState extends State<Home> {
   String status = "";
   String houseId = '';
   TenantHouseEntity? tenantHouseEntity;
+  final controller = Get.put(AuthController());
 
   @override
   void initState() {
@@ -47,7 +50,6 @@ class _HomeState extends State<Home> {
   }
 
   _getUserData() async {
-    final controller = Get.put(AuthController());
     controller.getUserData();
 
     name = "${controller.userProfile.value?.name.toString()}".inCaps;
@@ -289,6 +291,7 @@ class _HomeState extends State<Home> {
             //await context.push("/add-visitor");
             // ignore: use_build_context_synchronously
             // context.read<VisitorsBloc>().add(GetVisitorsEvent());
+            Get.to(() => const AddVisitor());
           },
           label: 'New Vistor',
           labelStyle: TextStyle(
@@ -302,6 +305,9 @@ class _HomeState extends State<Home> {
           ),
           backgroundColor: primaryColor,
           onTap: () async {
+            Get.to(() => AddRequest(
+                houseId:
+                    "${controller.userProfile.value?.tenantHouse?.houseId.toString()}"));
             //await context.push("/add-request", extra: houseId);
             // ignore: use_build_context_synchronously
             // context.read<ServiceRequestBloc>().add(GetServiceRequestsEvent());

@@ -8,36 +8,34 @@ import '../core/constants/network_manager.dart';
 import '../core/utils/helpers.dart';
 import 'auth_controller.dart';
 
-class ServiceRequestController extends GetxController {
+class VisitorController extends GetxController {
   final NetworkManager _networkManager = NetworkManager();
   var dateNow = DateFormat("dd/MM/yyyy").add_jm().format(DateTime.now());
   final controller = Get.put(AuthController());
 
-  Future<void> addServiceRequest(String description, name, priority, houseId,
-      section, maintenance, location) async {
+  Future<void> addVistor(String visitorName, visitorPhoneNumber, reason,
+      arrival, departure) async {
     bool isConnected = await _networkManager.isConnected();
-    final phone = controller.userProfile.value?.phone;
-    final email = controller.userProfile.value?.email;
+    final tenantPhone = controller.userProfile.value?.phone;
+    final tenantEmail = controller.userProfile.value?.email;
 
     Logger().i(
-        "$description, $name, $priority, $houseId, $section, $maintenance, $location, $phone, $email");
+        "$visitorName, $visitorPhoneNumber, $reason, $arrival, $departure, $tenantPhone, $tenantEmail");
 
     if (isConnected) {
       try {
-        final response = await clientSupaBase.from("ServiceRequest").insert({
-          'description': description,
-          'name': name,
-          'priority': priority,
-          'houseId': houseId,
-          'section': section.toString(),
-          'location': location,
-          'maintenance': maintenance,
+        final response = await clientSupaBase.from("VisitorRequest").insert({
           'created_at': dateNow,
-          'phone': phone,
-          'email': email
+          'tenantPhone': tenantPhone,
+          'tenantEmail': tenantEmail,
+          'phone': visitorPhoneNumber,
+          'arrival': arrival,
+          'departure': departure,
+          'reason': reason,
+          'visitor_name': visitorName
         });
         Logger().i("Response: $response");
-        toast("Service Request created!");
+        toast("Visitor created successfully");
         Get.back();
       } on PostgrestException catch (e) {
         Logger().e(e.code);

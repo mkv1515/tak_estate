@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_slider_flutter/onboarding_slider_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tak/core/constants/assets.dart';
 
 ///
@@ -60,3 +61,9 @@ const List<String> imgList = [
 //Error Messages
 const String noInternetTxt = "No internet connection. Please try again later.";
 const messageTxt = "Email or password is invalid";
+
+const supabaseUrl = "https://sohijavarblfhkrufash.supabase.co";
+const supabaseAnonKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvaGlqYXZhcmJsZmhrcnVmYXNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTczMzg0MjYsImV4cCI6MjAzMjkxNDQyNn0.uxgNLes4c3IL7n8Qt1C9L_PXL9AVC_eECPqgs_szRzE";
+
+final clientSupaBase = Supabase.instance.client;

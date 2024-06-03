@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../../core/data/models/user_model.dart';
+import '../../../onboard/presentation/pages/onboarding.dart';
+import '../../../profile/presentation/pages/change_password.dart';
+import '../../../profile/presentation/pages/profile.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  const Settings({super.key, required this.userModel});
+
+  final UserModel? userModel;
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -56,9 +64,11 @@ class _SettingsState extends State<Settings> {
       ),
       body: ListView(
         children: [
+          const Divider(),
           ListTile(
             onTap: () {
               //context.push("/profile");
+              Get.to(() => Profile(userModel: widget.userModel));
             },
             leading: const Icon(Icons.person),
             title: Text(
@@ -72,6 +82,7 @@ class _SettingsState extends State<Settings> {
           ListTile(
             onTap: () {
               //context.push("/change-password");
+              Get.to(() => const ChangePassword());
             },
             leading: const Icon(Icons.lock),
             title: Text(
@@ -85,6 +96,7 @@ class _SettingsState extends State<Settings> {
           ListTile(
             onTap: () {
               //context.read<AuthBloc>().add(LogoutEvent());
+              Get.offAll(() => const Onboarding());
             },
             leading: const Icon(
               Icons.logout,
@@ -100,21 +112,21 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           const Divider(),
-          ListTile(
-            onTap: () async => await _showMyDialog(),
-            leading: const Icon(
-              Icons.delete_rounded,
-              color: Color.fromARGB(255, 209, 33, 20),
-            ),
-            title: Text(
-              "Delete Account",
-              style: Theme.of(context).listTileTheme.titleTextStyle!.copyWith(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w800,
-                    color: const Color.fromARGB(255, 209, 33, 20),
-                  ),
-            ),
-          )
+          // ListTile(
+          //   onTap: () async => await _showMyDialog(),
+          //   leading: const Icon(
+          //     Icons.delete_rounded,
+          //     color: Color.fromARGB(255, 209, 33, 20),
+          //   ),
+          //   title: Text(
+          //     "Delete Account",
+          //     style: Theme.of(context).listTileTheme.titleTextStyle!.copyWith(
+          //           fontSize: 15.sp,
+          //           fontWeight: FontWeight.w800,
+          //           color: const Color.fromARGB(255, 209, 33, 20),
+          //         ),
+          //   ),
+          // )
         ],
       ),
     );

@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:tak/features/visitors/presentation/widgets/date_arrival.dart';
 import 'package:tak/features/visitors/presentation/widgets/phone_field.dart';
+import 'package:tak/features/visitors/presentation/widgets/reason_field.dart';
 import 'package:tak/features/visitors/presentation/widgets/submit_button.dart';
 import 'package:tak/features/visitors/presentation/widgets/visitor_name_field.dart';
 
@@ -39,49 +40,66 @@ class _AddVisitorState extends State<AddVisitor> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'New Visitor',
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'New Visitor',
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(left: 8.w, right: 8.w),
-            child: Column(
-              children: [
-                VisitorNameField(callback: (v) {
-                  setState(() {
-                    visitorName = v;
-                  });
-                }),
-                Gap(16.h),
-                PhoneField(callback: (v) {
-                  setState(() {
-                    visitorPhoneNumber = v;
-                  });
-                }),
-                Gap(16.h),
-                DateArrival(
-                  callback: (v) {
-                    setState(() {
-                      arrival = v;
-                    });
-                  },
-                ),
-                Gap(16.h),
-                SubmitButton(
-                  visitorName: visitorName,
-                  visitorPhoneNumber: visitorPhoneNumber,
-                  arrival: arrival,
-                  departure: departure,
-                ),
-                Gap(16.h),
-              ],
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: IconTheme(
+            data: Theme.of(context).iconTheme,
+            child: const Icon(
+              Icons.keyboard_arrow_left,
             ),
           ),
         ),
-      
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(left: 8.w, right: 8.w),
+          child: Column(
+            children: [
+              VisitorNameField(callback: (v) {
+                setState(() {
+                  visitorName = v;
+                });
+              }),
+              Gap(16.h),
+              PhoneField(callback: (v) {
+                setState(() {
+                  visitorPhoneNumber = v;
+                });
+              }),
+              Gap(16.h),
+              ReasonField(callback: (v) {
+                setState(() {
+                  reason = v;
+                });
+              }),
+              Gap(16.h),
+              DateArrival(
+                callback: (v) {
+                  setState(() {
+                    arrival = v;
+                  });
+                },
+              ),
+              Gap(16.h),
+              SubmitButton(
+                visitorName: visitorName,
+                visitorPhoneNumber: visitorPhoneNumber,
+                arrival: arrival,
+                departure: departure,
+                reason: reason,
+              ),
+              Gap(16.h),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

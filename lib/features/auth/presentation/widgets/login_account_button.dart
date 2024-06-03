@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tak/controllers/auth.dart';
+import 'package:tak/controllers/auth_controller.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
 
 class LoginAccountButton extends StatelessWidget {
   final String password;
   final String email;
+
   const LoginAccountButton({
     super.key,
     required this.email,
@@ -17,7 +18,7 @@ class LoginAccountButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(Auth());
+    final controller = Get.put(AuthController());
 
     // return BlocConsumer<AuthBloc, AuthState>(
     //   listener: (context, state) {
