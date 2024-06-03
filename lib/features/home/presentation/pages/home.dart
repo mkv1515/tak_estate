@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/controllers/auth_controller.dart';
+import 'package:tak/controllers/service_request_controller.dart';
 import 'package:tak/core/constants/constants.dart';
 import 'package:tak/core/domain/entities/tenant_house_entity.dart';
 import 'package:tak/core/services/secure_storage.dart';
@@ -65,7 +66,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AuthController());
-    //controller.getUserData();
+    final controller2 = Get.put(ServiceRequestController());
+    controller2.getServiceRequest();
 
     return Scaffold(
       appBar: AppBar(

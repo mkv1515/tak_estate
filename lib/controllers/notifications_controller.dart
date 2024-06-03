@@ -5,18 +5,18 @@ import 'package:tak/core/constants/constants.dart';
 import 'package:tak/core/constants/dio_helper.dart';
 import 'package:tak/core/constants/store_value.dart';
 import 'package:tak/core/utils/helpers.dart';
+import 'package:tak/features/notification/data/models/notification_model.dart';
 
 import '../core/constants/network_manager.dart';
-import '../features/messages/data/models/message_model.dart';
 
-class MessagesController extends GetxController {
+class NotificationsController extends GetxController {
   final NetworkManager _networkManager = NetworkManager();
-  final RxList<MessageModel> messageList = RxList<MessageModel>([]);
-  // Rx<MessageModel?> messageSingle = Rx<MessageModel?>(null);
+  final RxList<NotificationModel> notificationsList =
+      RxList<NotificationModel>([]);
 
   RxString? token = "".obs;
 
-  Future<void> getMessages() async {
+  Future<void> getNotifications() async {
     bool isConnected = await _networkManager.isConnected();
 
     if (isConnected) {
@@ -27,13 +27,13 @@ class MessagesController extends GetxController {
 
       try {
         var response =
-            await dio.get('messages', options: Options(headers: headers));
+            await dio.get('notifications', options: Options(headers: headers));
         if (response.statusCode == 200) {
-          // Logger().i(response.data['data']);
+          //  Logger().i(response.data['data']);
           final dataList = response.data['data'] as List;
-          messageList.value =
-              dataList.map((json) => MessageModel.fromMap(json)).toList();
-          //Logger().i(messageList.first.message.toString());
+          notificationsList.value =
+              dataList.map((json) => NotificationModel.fromMap(json)).toList();
+          //Logger().i(notificationsList.first.message.toString());
         } else {
           Logger().i(response.statusMessage);
         }

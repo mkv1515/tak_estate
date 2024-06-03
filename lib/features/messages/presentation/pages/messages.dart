@@ -7,7 +7,6 @@ import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/extensions.dart';
 import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/features/messages/data/models/message_model.dart';
-import 'package:tak/features/messages/domain/entities/messages_entity.dart';
 
 class Messages extends StatefulWidget {
   const Messages({super.key});
@@ -24,12 +23,13 @@ class _MessagesState extends State<Messages> {
     List<MessageModel> messageEntity = controller.messageList;
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Messages',
-          ),
+      appBar: AppBar(
+        title: const Text(
+          'Messages',
         ),
-        body: (controller.messageList.isEmpty)
+      ),
+      body: Obx(
+        () => (controller.messageList.isEmpty)
             ? Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,15 +61,15 @@ class _MessagesState extends State<Messages> {
                   shrinkWrap: true,
                   itemCount: controller.messageList.length,
                   itemBuilder: (context, index) {
-                    final data = controller.messageList[index];
+                   // final data = controller.messageList[index];
                     bool isSameDate = true;
-                    final String? dateString = messageEntity[index].createdAt;
+                    final String? dateString = messageEntity[index].created_at;
                     final DateTime date = DateTime.parse(dateString!);
                     if (index == 0) {
                       isSameDate = false;
                     } else {
                       final String? prevDateString =
-                          messageEntity[index - 1].createdAt;
+                          messageEntity[index - 1].created_at;
                       final DateTime prevDate = DateTime.parse(prevDateString!);
                       isSameDate = date.isSameDate(prevDate);
                     }
@@ -102,7 +102,9 @@ class _MessagesState extends State<Messages> {
                     }
                   },
                 ),
-              ));
+              ),
+      ),
+    );
   }
 }
 
@@ -140,7 +142,7 @@ class MessageCard extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    convertDateToAgo(message.createdAt),
+                    convertDateToAgo(message.created_at),
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,

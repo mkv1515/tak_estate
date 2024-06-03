@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../controllers/service_request_controller.dart';
 
 class ServiceRequestWidget extends StatelessWidget {
   final String houseId;
@@ -9,6 +12,8 @@ class ServiceRequestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ServiceRequestController());
+    controller.getServiceRequest();
     return Container();
     // return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
     //   buildWhen: (pre, state) {
