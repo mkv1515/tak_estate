@@ -24,6 +24,7 @@ class _MessagesState extends State<Messages> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: null,
         title: const Text(
           'Messages',
         ),
@@ -61,7 +62,7 @@ class _MessagesState extends State<Messages> {
                   shrinkWrap: true,
                   itemCount: controller.messageList.length,
                   itemBuilder: (context, index) {
-                   // final data = controller.messageList[index];
+                    // final data = controller.messageList[index];
                     bool isSameDate = true;
                     final String? dateString = messageEntity[index].created_at;
                     final DateTime date = DateTime.parse(dateString!);

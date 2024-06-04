@@ -29,6 +29,7 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: null,
         title: const Text(
           'Rent and Service Transactions',
         ),
