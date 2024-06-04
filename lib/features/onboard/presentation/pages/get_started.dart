@@ -27,7 +27,7 @@ class GetStarted extends StatelessWidget {
             ),
             const OnboardGetStartedText(),
             const OnBoardLoginButton(),
-            const OnboardSignUpButton(),
+            //const OnboardSignUpButton(),
             // const OrText(),
             // const SocialButtons(),
           ],

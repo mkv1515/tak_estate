@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/web.dart';
+import 'package:tak/controllers/update_profile_controller.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/core/widgets/tak_along_loading.dart';
 
 class ChangePasswordButton extends StatelessWidget {
   final String password;
+  final VoidCallback? onPressed;
+
   const ChangePasswordButton({
     super.key,
     required this.password,
+    this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       margin: EdgeInsets.only(
         top: 40.h,
@@ -46,15 +53,18 @@ class ChangePasswordButton extends StatelessWidget {
               color: white,
             ),
           ),
-          onPressed: () async {
-            // if (state is ProfileLoadingState) {
-            // } else {
-            //   context.read<ProfileBloc>().add(
-            //         ChangePasswordEvent(
-            //           password: password,
-            //         ),
-            //       );
-          }),
+          onPressed: onPressed
+          //() async {
+          // Logger().i(widget.password);
+
+          // if (state is ProfileLoadingState) {
+          // } else {
+          //   context.read<ProfileBloc>().add(
+          //         ChangePasswordEvent(
+          //           password: password,
+          //         ),
+          //       );
+          ),
     );
   }
 }

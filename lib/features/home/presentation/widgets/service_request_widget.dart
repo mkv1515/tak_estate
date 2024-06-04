@@ -45,12 +45,12 @@ class ServiceRequestWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               HeroIcon(
-                HeroIcons.plus,
+                HeroIcons.bell,
                 size: 35.r,
               ),
               Gap(5.h),
               Text(
-                "Create New",
+                "Service Requests is Empty",
                 style: GoogleFonts.robotoFlex(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
@@ -61,25 +61,25 @@ class ServiceRequestWidget extends StatelessWidget {
         ),
       );
     } else {
-      return Obx(
-        () => SizedBox(
-          height: 150.dg,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: serviceRequests.length,
-              itemBuilder: (context, index) {
-                ServiceRequestsModel? request = serviceRequests[index];
-                return ServiceRequestCard(request: request);
-              }),
-        ),
+      return SizedBox(
+        height: 150.dg,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: serviceRequests.length,
+            itemBuilder: (context, index) {
+              ServiceRequestsModel? request = serviceRequests[index];
+              return ServiceRequestCard(request: request);
+            }),
       );
     }
   }
+}
+
+
   // else {
   //   return TakLoading(
   //     color:
   //         Theme.of(context).brightness == Brightness.dark ? white : dark,
   //   );
   // }
-}

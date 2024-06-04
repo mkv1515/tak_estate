@@ -13,6 +13,7 @@ class VisitorsModel {
   String reason;
   String? destination;
   String visitor_name;
+  String? checkIn;
   VisitorsModel({
     required this.id,
     required this.created_at,
@@ -25,6 +26,7 @@ class VisitorsModel {
     required this.reason,
     this.destination,
     required this.visitor_name,
+    this.checkIn,
   });
 
   VisitorsModel copyWith({
@@ -39,6 +41,7 @@ class VisitorsModel {
     String? reason,
     String? destination,
     String? visitor_name,
+    String? checkIn,
   }) {
     return VisitorsModel(
       id: id ?? this.id,
@@ -52,6 +55,7 @@ class VisitorsModel {
       reason: reason ?? this.reason,
       destination: destination ?? this.destination,
       visitor_name: visitor_name ?? this.visitor_name,
+      checkIn: checkIn ?? this.checkIn,
     );
   }
 
@@ -68,6 +72,7 @@ class VisitorsModel {
       'reason': reason,
       'destination': destination,
       'visitor_name': visitor_name,
+      'checkIn': checkIn,
     };
   }
 
@@ -85,6 +90,7 @@ class VisitorsModel {
       destination:
           map['destination'] != null ? map['destination'] as String : null,
       visitor_name: map['visitor_name'] as String,
+      checkIn: map['checkIn'] != null ? map['checkIn'] as String : null,
     );
   }
 
@@ -95,7 +101,7 @@ class VisitorsModel {
 
   @override
   String toString() {
-    return 'VisitorsModel(id: $id, created_at: $created_at, tenantPhone: $tenantPhone, tenantEmail: $tenantEmail, phone: $phone, arrival: $arrival, departure: $departure, car_regno: $car_regno, reason: $reason, destination: $destination, visitor_name: $visitor_name)';
+    return 'VisitorsModel(id: $id, created_at: $created_at, tenantPhone: $tenantPhone, tenantEmail: $tenantEmail, phone: $phone, arrival: $arrival, departure: $departure, car_regno: $car_regno, reason: $reason, destination: $destination, visitor_name: $visitor_name, checkIn: $checkIn)';
   }
 
   @override
@@ -112,7 +118,8 @@ class VisitorsModel {
         other.car_regno == car_regno &&
         other.reason == reason &&
         other.destination == destination &&
-        other.visitor_name == visitor_name;
+        other.visitor_name == visitor_name &&
+        other.checkIn == checkIn;
   }
 
   @override
@@ -127,6 +134,7 @@ class VisitorsModel {
         car_regno.hashCode ^
         reason.hashCode ^
         destination.hashCode ^
-        visitor_name.hashCode;
+        visitor_name.hashCode ^
+        checkIn.hashCode;
   }
 }

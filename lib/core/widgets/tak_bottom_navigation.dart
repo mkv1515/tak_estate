@@ -135,6 +135,7 @@ class _TakBottomNavigationState extends State<TakBottomNavigation> {
   Widget build(BuildContext context) {
     final controller = Get.put(AuthController());
     controller.getUserData();
+
     return Scaffold(
       body: bottomNavScreen.elementAt(currentPageIndex),
       drawer: const Drawer(

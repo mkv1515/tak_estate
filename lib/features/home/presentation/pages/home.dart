@@ -46,14 +46,18 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     // context.read<AuthBloc>().add(MeEvent());
-    _getUserData();
-
+    setState(() {
+      _getUserData();
+    });
     //context.read<TransactionBloc>().add(BalanceTransactionFetch());
   }
 
   _getUserData() async {
     controller.getUserData();
-
+    final controller2 = Get.put(ServiceRequestController());
+    controller2.getServiceRequest();
+    final controller3 = Get.put(VisitorController());
+    controller3.getVisitor();
     name = "${controller.userProfile.value?.name.toString()}".inCaps;
     avatar =
         controller.userProfile.value?.avatar.toString() ?? imageplaceholder;
@@ -66,12 +70,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AuthController());
-    final controller2 = Get.put(ServiceRequestController());
-    controller2.getServiceRequest();
+    _getUserData();
 
-    final controller3 = Get.put(VisitorController());
-    controller3.getVisitor();
     return Scaffold(
       appBar: AppBar(
         actions: [

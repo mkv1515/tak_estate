@@ -20,16 +20,18 @@ class ServiceRequestController extends GetxController {
       RxList<ServiceRequestsModel>([]);
   RxBool isEmpty = false.obs;
 
-  Future<void> getServiceRequest() async {
-    final email = controller.userProfile.value?.email;
+  RxString userEmail = "".obs;
 
+  Future<void> getServiceRequest() async {
     bool isConnected = await _networkManager.isConnected();
+    final email = controller.userProfile.value?.email;
+    userEmail.value = email.toString();
     if (isConnected) {
       try {
         final response = await clientSupaBase
             .from("ServiceRequest")
             .select()
-            .eq('email', email!)
+            .eq('email', email.toString())
             .order('id', ascending: false);
 
         if (response.isEmpty) {

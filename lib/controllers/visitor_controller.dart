@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:tak/controllers/service_request_controller.dart';
+import 'package:tak/core/widgets/tak_bottom_navigation.dart';
 import 'package:tak/features/visitors/data/models/visitors_model.dart';
 
 import '../core/constants/constants.dart';
 import '../core/constants/network_manager.dart';
+import '../core/constants/store_value.dart';
 import '../core/utils/helpers.dart';
 import 'auth_controller.dart';
 
@@ -19,19 +22,19 @@ class VisitorController extends GetxController {
   final RxList<VisitorsModel?> visitorList = RxList<VisitorsModel>([]);
 
   Future<void> getVisitor() async {
-    final email = controller.userProfile.value?.email;
-    Logger().d(email);
-
     bool isConnected = await _networkManager.isConnected();
+    final email = await readValue('email');
+    // Logger().d("email from storage $email");
+
     if (isConnected) {
       try {
         final response = await clientSupaBase
             .from("VisitorRequest")
             .select()
-            .eq('tenantEmail', email!)
+            .eq('tenantEmail', email.toString())
             .order('id', ascending: false);
 
-        Logger().d(response);
+        //Logger().d(response);
         if (response.isEmpty) {
           isEmpty.value = true;
         } else {
@@ -80,7 +83,8 @@ class VisitorController extends GetxController {
         });
         Logger().i("Response: $response");
         toast("Visitor created successfully");
-        Get.back();
+        // Get.back();
+        Get.off(() => const TakBottomNavigation());
       } on PostgrestException catch (e) {
         Logger().e(e.code);
       } catch (e) {

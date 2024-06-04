@@ -30,6 +30,10 @@ class AuthController extends GetxController {
 
       if (response.statusCode == 200) {
         userProfile.value = UserModel.fromJson(data['data']);
+        final email = userProfile.value?.email.toString();
+        storeValue(valueName: 'email', value: email ?? "");
+
+        //Logger().i("Email from getprofile $email");
       } else {
         Logger().e(response.statusMessage);
       }
@@ -54,8 +58,10 @@ class AuthController extends GetxController {
           return toast(messageTxt);
         }
         final token = data['data']['access_token'].toString();
+
         storeValue(valueName: 'token', value: token);
-        //  Logger().i(data['data']['access_token']);
+
+        // Logger().i(data);
 
         toast("Loggin Successful.");
         Logger().d("Loggin Successful.");

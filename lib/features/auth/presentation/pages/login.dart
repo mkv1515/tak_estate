@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tak/controllers/auth_controller.dart';
+import 'package:tak/core/widgets/tak_along_loading.dart';
 import 'package:tak/core/widgets/tak_email_field.dart';
 import 'package:tak/core/widgets/tak_password_field.dart';
 import 'package:tak/features/auth/presentation/widgets/dont_have_an_account.dart';
@@ -30,6 +32,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AuthController());
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -100,12 +103,12 @@ class _LoginState extends State<Login> {
                   ),
                   // const Center(child: OrText()),
                   // const SocialButtons(),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 21.h,
-                    ),
-                    child: const DontHaveAnAccount(),
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(
+                  //     top: 21.h,
+                  //   ),
+                  //   child: const DontHaveAnAccount(),
+                  // ),
                 ],
               ),
             ),
