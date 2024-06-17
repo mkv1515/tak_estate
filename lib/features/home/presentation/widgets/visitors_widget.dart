@@ -36,7 +36,7 @@ class _VisitorsWidgetState extends State<VisitorsWidget> {
     controller.getVisitor();
 
     RxList<VisitorsModel?> visitorsEntity = controller.visitorList;
-    // Logger().w(visitorsEntity);
+    //kf Logger().w(visitorsEntity);
     if (visitorsEntity.isEmpty) {
       return GestureDetector(
         onTap: () {
@@ -87,13 +87,13 @@ class _VisitorsWidgetState extends State<VisitorsWidget> {
           VisitorsModel? visitor = visitorsEntity[index];
           return ExpansionTile(
             title: Text(
-              visitor!.visitor_name,
+              visitor!.visitor_name ?? "",
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
             ),
-            subtitle: Text(visitor.phone),
+            subtitle: Text(visitor.phone ?? ""),
             leading: const Icon(Icons.person),
             trailing: Icon(_isExpanded ? Icons.expand_less : Icons.expand_more),
             children: [
@@ -118,7 +118,7 @@ class _VisitorsWidgetState extends State<VisitorsWidget> {
                         ),
                         Expanded(
                             child: Text(
-                          convertDate(visitor.arrival),
+                          convertDate(visitor.arrival ?? ""),
                           textAlign: TextAlign.end,
                         )),
                       ],
@@ -135,7 +135,7 @@ class _VisitorsWidgetState extends State<VisitorsWidget> {
                                     fontWeight: FontWeight.w700,
                                   ),
                         ),
-                        visitor.checkIn == null
+                        visitor.check_in == null
                             ? Text(
                                 "Pending",
                                 style: Theme.of(context)

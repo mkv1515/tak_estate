@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:tak/core/constants/dio_helper.dart';
+import 'package:tak/core/constants/store_value.dart';
 import 'package:tak/core/widgets/tak_bottom_navigation.dart';
 import 'package:tak/features/service_request/data/models/service_requests_model.dart';
 
@@ -19,39 +22,40 @@ class ServiceRequestController extends GetxController {
   final RxList<ServiceRequestsModel?> serviceList =
       RxList<ServiceRequestsModel>([]);
   RxBool isEmpty = false.obs;
+  RxString? token = "".obs;
 
   RxString userEmail = "".obs;
 
   Future<void> getServiceRequest() async {
     bool isConnected = await _networkManager.isConnected();
-    final email = controller.userProfile.value?.email;
-    userEmail.value = email.toString();
-    if (isConnected) {
-      try {
-        final response = await clientSupaBase
-            .from("ServiceRequest")
-            .select()
-            .eq('email', email.toString())
-            .order('id', ascending: false);
 
-        if (response.isEmpty) {
-          isEmpty.value = true;
-        } else {
-          isEmpty.value = false;
-        }
-        final dataList = response as List;
+    if (isConnected) {
+      token?.value = (await readValue('token'))!;
+      var headers = {
+        'Authorization': 'Bearer $token',
+      };
+      try {
+        var response = await dio.get(
+          'services',
+          options: Options(headers: headers),
+        );
+
+        final data = response.data['data'];
+
+        final dataList = response.data['data'] as List;
         serviceList.value =
             dataList.map((json) => ServiceRequestsModel.fromMap(json)).toList();
 
-        //Logger().d(serviceList.first?.name);
-      } on SocketException catch (_) {
-        Logger().w(noInternetTxt);
-        toast(noInternetTxt);
-      } on PostgrestException catch (e) {
-        Logger()
-            .e('Database Error Message: ${"${e.details} Code : ${e.code}"}');
-      } catch (e) {
-        Logger().e(e.toString());
+        // Logger().d visitorList.first?.name);
+        if (response.statusCode == 200) {
+          //Logger().i(data);
+          // toast("Profile Updated");
+          // Get.off(() => const TakBottomNavigation());
+        } else {
+          Logger().e(response.statusMessage);
+        }
+      } on DioException catch (e) {
+        Logger().e(e.message);
       }
     } else {
       toast(noInternetTxt);
