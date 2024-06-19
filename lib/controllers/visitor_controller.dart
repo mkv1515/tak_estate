@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:tak/controllers/service_request_controller.dart';
 import 'package:tak/core/constants/dio_helper.dart';
 import 'package:tak/core/widgets/tak_bottom_navigation.dart';
 import 'package:tak/features/visitors/data/models/visitors_model.dart';
@@ -39,7 +35,7 @@ class VisitorController extends GetxController {
           options: Options(headers: headers),
         );
 
-        final data = response.data['data'];
+        //final data = response.data['data'];
 
         final dataList = response.data['data'] as List;
         visitorList.value =
@@ -65,32 +61,38 @@ class VisitorController extends GetxController {
   Future<void> addVistor(String visitorName, visitorPhoneNumber, reason,
       arrival, departure) async {
     bool isConnected = await _networkManager.isConnected();
-    final tenantPhone = controller.userProfile.value?.phone;
-    final tenantEmail = controller.userProfile.value?.email;
-
-    Logger().i(
-        "$visitorName, $visitorPhoneNumber, $reason, $arrival, $departure, $tenantPhone, $tenantEmail");
-
     if (isConnected) {
+      token?.value = (await readValue('token'))!;
+      var headers = {
+        'Authorization': 'Bearer $token',
+      };
+      final house = controller.house.value?.name;
+      Logger().i(
+          "$visitorName, $visitorPhoneNumber, $reason, $arrival, $departure, $house");
+
       try {
-        final response = await clientSupaBase.from("VisitorRequest").insert({
-          'created_at': dateNow,
-          'tenantPhone': tenantPhone,
-          'tenantEmail': tenantEmail,
-          'phone': visitorPhoneNumber,
-          'arrival': arrival,
-          'departure': departure,
-          'reason': reason,
-          'visitor_name': visitorName
+        var response = await dio
+            .post('visitors/create', options: Options(headers: headers), data: {
+          "phone": visitorPhoneNumber,
+          "arrival": arrival,
+          "departure": null,
+          "car_regno": null,
+          "reason": reason,
+          "destination": house,
+          "visitor_name": visitorName
         });
-        Logger().i("Response: $response");
-        toast("Visitor created successfully");
-        // Get.back();
-        Get.off(() => const TakBottomNavigation());
-      } on PostgrestException catch (e) {
-        Logger().e(e.code);
-      } catch (e) {
-        Logger().e(e.hashCode);
+
+        final data = response.data;
+
+        if (response.statusCode == 200) {
+          Logger().i(data);
+          toast("Visitor created successfully");
+          Get.off(() => const TakBottomNavigation());
+        } else {
+          Logger().e(response.statusMessage);
+        }
+      } on DioException catch (e) {
+        Logger().e(e.message);
       }
     } else {
       toast(noInternetTxt);

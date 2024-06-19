@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -81,8 +83,18 @@ class SubmitButton extends StatelessWidget {
               }
             }
 
+// List<String> rooms = ["Sitting Room", "Kitchen"];
+//   String jsonString = jsonEncode(rooms);
+//   String escapedString = jsonString.replaceAll('"', '\\"');
+//   print(escapedString);
+
+            String maintenance1Json = jsonEncode(maintenance);
+            String locationStringJson = jsonEncode(location);
+
+            //Logger().d(maintenance1String);
+
             controller.addServiceRequest(description!, name, priority, houseId,
-                section, maintenance, location);
+                section, maintenance1Json, locationStringJson);
             // context.read<ServiceRequestBloc>().add(
             //       AddServiceRequestEvent(
             //         description: description!,

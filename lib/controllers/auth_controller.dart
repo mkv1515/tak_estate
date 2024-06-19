@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:logger/web.dart';
+import 'package:tak/core/data/models/house.dart';
 import 'package:tak/core/utils/helpers.dart';
 
 import '../core/constants/constants.dart';
@@ -16,6 +17,7 @@ class AuthController extends GetxController {
   var isButtonEnabled = true.obs;
   RxString? token = "".obs;
   Rx<UserModel?> userProfile = Rx<UserModel?>(null);
+  Rx<House?> house = Rx<House?>(null);
 
   Future<void> getUserData() async {
     token?.value = (await readValue('token'))!;
@@ -30,10 +32,13 @@ class AuthController extends GetxController {
 
       if (response.statusCode == 200) {
         userProfile.value = UserModel.fromJson(data['data']);
-        final email = userProfile.value?.email.toString();
-        storeValue(valueName: 'email', value: email ?? "");
+        final houseName = data['data']['tenant_house']['house'];
+        house.value = House.fromMap(houseName);
 
-        //Logger().i("Email from getprofile $email");
+        //storeValue(valueName: 'email', value: email ?? "");
+        //Logger().i(houseName);
+
+        //Logger().i(house.value?.name);
       } else {
         Logger().e(response.statusMessage);
       }

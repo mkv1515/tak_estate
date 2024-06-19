@@ -1,10 +1,9 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tak/core/constants/dio_helper.dart';
 import 'package:tak/core/constants/store_value.dart';
 import 'package:tak/core/widgets/tak_bottom_navigation.dart';
@@ -66,43 +65,57 @@ class ServiceRequestController extends GetxController {
   Future<void> addServiceRequest(String description, name, priority, houseId,
       section, maintenance, location) async {
     bool isConnected = await _networkManager.isConnected();
-    final phone = controller.userProfile.value?.phone;
-    final email = controller.userProfile.value?.email;
 
 //date format
-    DateTime now = DateTime.now();
-    DateFormat formatterspan = DateFormat('yyyy-MM-dd');
-    String datespan = formatterspan.format(now);
-    DateFormat formattertime = DateFormat('hh:mm:ss');
-    String timespan = formattertime.format(now);
+    // DateTime now = DateTime.now();
+    // DateFormat formatterspan = DateFormat('yyyy-MM-dd');
+    // String datespan = formatterspan.format(now);
+    // DateFormat formattertime = DateFormat('hh:mm:ss');
+    // String timespan = formattertime.format(now);
 
     //final arrival = "$datespan $timespan";
     //final dateNow = "$datespan $timespan";
 
     Logger().i(
-        "$description, $name, $priority, $houseId, $section, $maintenance, $location, $phone, $email");
+        "$description, $name, $priority, $houseId, $section, $maintenance, $location");
 
+    token?.value = (await readValue('token'))!;
+    var headers = {
+      'Authorization': 'Bearer $token',
+    };
     if (isConnected) {
       try {
-        final response = await clientSupaBase.from("ServiceRequest").insert({
-          'description': description,
-          'name': name,
-          'priority': priority,
-          'houseId': houseId,
-          'section': section.toString(),
-          'location': location,
-          'maintenance': maintenance,
-          'created_at': dateNow,
-          'phone': phone,
-          'email': email
-        });
-        Logger().i("Response: $response");
-        toast("Service Request created!");
-        Get.off(() => const TakBottomNavigation());
-      } on PostgrestException catch (e) {
-        Logger().e(e.code);
-      } catch (e) {
-        Logger().e(e.hashCode);
+        var response = await dio.post('services/create',
+            options: Options(headers: headers),
+            data: json.encode({
+              "description": "$description",
+              "name": "$name",
+              "priority": "$priority",
+              "house_id": int.parse(houseId.toString()),
+              "section": "$section",
+              "location": location,
+              "maintenance": maintenance
+
+              // "description": description,
+              // "name": name,
+              // "priority": priority,
+              // "house_id": houseId,
+              // "section": section,
+              // "location": location,
+              // "maintenance": maintenance
+            }));
+
+        final data = response.data;
+
+        if (response.statusCode == 200) {
+          Logger().i(data);
+          toast("Service Request created!");
+          Get.off(() => const TakBottomNavigation());
+        } else {
+          Logger().e(response.statusMessage);
+        }
+      } on DioException catch (e) {
+        Logger().e(e.message);
       }
     } else {
       toast(noInternetTxt);
