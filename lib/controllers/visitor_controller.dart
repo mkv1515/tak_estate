@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:tak/core/constants/dio_helper.dart';
 import 'package:tak/core/widgets/tak_bottom_navigation.dart';
+import 'package:tak/features/security/data/models/security_visitors_model.dart';
+import 'package:tak/features/security/domain/entities/security_visitors_entity.dart';
 import 'package:tak/features/visitors/data/models/visitors_model.dart';
 
 import '../core/constants/constants.dart';
@@ -19,6 +21,45 @@ class VisitorController extends GetxController {
   RxBool isEmpty = false.obs;
   final RxList<VisitorsModel?> visitorList = RxList<VisitorsModel>([]);
   RxString? token = "".obs;
+  final RxList<SecurityVisitorEntity?> visitorSecurityList =
+      RxList<SecurityVisitorEntity>([]);
+
+  Future<void> getVisitorSecurity() async {
+    bool isConnected = await _networkManager.isConnected();
+
+    if (isConnected) {
+      token?.value = (await readValue('token'))!;
+      var headers = {
+        'Authorization': 'Bearer $token',
+      };
+      try {
+        var response = await dio.get(
+          'visitors/security',
+          options: Options(headers: headers),
+        );
+
+        final dataList = response.data['data'] as List;
+        visitorSecurityList.value = dataList
+            .map((json) => SecurityVisitorModel.fromJson(json))
+            .toList();
+
+        Logger().i(response);
+
+        //Logger().i(visitorSecurityList.first?.houseNo);
+        if (response.statusCode == 200) {
+          // toast("Profile Updated");
+          // Get.off(() => const TakBottomNavigation());
+        } else {
+          Logger().e(response.statusMessage);
+        }
+      } on DioException catch (e) {
+        Logger().e(e.message);
+      }
+    } else {
+      toast(noInternetTxt);
+      Logger().w(noInternetTxt);
+    }
+  }
 
   Future<void> getVisitor() async {
     bool isConnected = await _networkManager.isConnected();

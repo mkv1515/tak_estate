@@ -21,7 +21,7 @@ class SecurityVisitorModel extends SecurityVisitorEntity {
       arrival: json['arrival'],
       departure: json['departure'],
       phone: json['phone'],
-      houseNo: json['house']['house_no'],
+      houseNo: json['house']['name'],
     );
   }
 }

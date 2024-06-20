@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/web.dart';
+import 'package:tak/controllers/auth_controller.dart';
 import 'package:tak/core/constants/constants.dart';
 import 'package:tak/core/data/models/user_model.dart';
 import 'package:tak/core/services/secure_storage.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/extensions.dart';
 import 'package:tak/core/widgets/tak_cache_network_image.dart';
+import 'package:tak/features/profile/presentation/pages/profile.dart';
 import 'package:tak/features/security/presentation/widgets/security_visitor_widget.dart';
+import 'package:tak/features/settings/presentation/pages/settings.dart';
 
 class Security extends StatefulWidget {
   const Security({super.key});
@@ -22,69 +27,84 @@ class _SecurityState extends State<Security> {
   String name = "";
   String role = "";
   String status = "";
+  final controller = Get.put(AuthController());
 
   @override
   void initState() {
     super.initState();
-    _getUserData();
+    setState(() {
+      _getUserData();
+    });
   }
 
   _getUserData() async {
-    UserModel? usermodel = await secureStorage.getUserData();
-    setState(() {
-      // name = "${usermodel?.name}".inCaps;
-      // avatar = usermodel?.avatar ?? imageplaceholder;
-      // role = "${usermodel?.role}".inCaps;
-      // status = "${usermodel?.status}";
-    });
+    // UserModel? usermodel = await secureStorage.getUserData();
+    controller.getUserData();
+
+    name = "${controller.userProfile.value?.name.toString()}".inCaps;
+    avatar =
+        controller.userProfile.value?.avatar.toString() ?? imageplaceholder;
+    role = "${controller.userProfile.value?.role.toString()}".inCaps;
+    status = "${controller.userProfile.value?.status.toString()}";
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-               // context.push("/settings").then((value) => _getUserData());
-              },
-              icon: const Icon(Icons.settings),
-            ),
-          ],
-          leading: GestureDetector(
-            onTap: () {
-              //context.push("/profile").then((value) => _getUserData());
+    _getUserData();
+    //Logger().d(controller.userProfile.value?.status.toString());
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              // context.push("/settings").then((value) => _getUserData());
+
+              Get.to(() => Settings(
+                    userModel: controller.userProfile.value,
+                  ));
             },
-            child: Padding(
-              padding: EdgeInsets.all(12.w),
-              child: TakCachedNetworkImage(
-                path: avatar,
-                width: 20,
-                height: 20,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.r),
-                ),
-                fit: BoxFit.fill,
+            icon: const Icon(Icons.settings),
+          ),
+        ],
+        leading: GestureDetector(
+          onTap: () {
+            //context.push("/profile").then((value) => _getUserData());
+
+            Get.to(() => Profile(
+                  userModel: controller.userProfile.value,
+                ));
+          },
+          child: Padding(
+            padding: EdgeInsets.all(12.w),
+            child: TakCachedNetworkImage(
+              path: imageplaceholder,
+              width: 20,
+              height: 20,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100.r),
               ),
+              fit: BoxFit.fill,
             ),
           ),
-          title: GestureDetector(
-            onTap: () {
-              //context.push("/profile");
-              },
-            child: Column(
+        ),
+        title: GestureDetector(
+          onTap: () {
+            //context.push("/profile");
+          },
+          child: Obx(
+            () => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  name,
+                  "${controller.userProfile.value?.name.toString().inCaps}",
                   style: GoogleFonts.robotoFlex(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 Text(
-                  role,
+                  "${controller.userProfile.value?.role.toString()}".inCaps,
                   style: GoogleFonts.robotoFlex(
                     fontSize: 10.sp,
                     fontWeight: FontWeight.w400,
@@ -94,10 +114,12 @@ class _SecurityState extends State<Security> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
+      ),
+      body: Obx(
+        () => SingleChildScrollView(
           child: Column(
             children: [
-              status != "approved"
+              "${controller.userProfile.value?.status.toString()}" != "approved"
                   ? Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.r),
@@ -124,7 +146,7 @@ class _SecurityState extends State<Security> {
             ],
           ),
         ),
-
+      ),
     );
   }
 }

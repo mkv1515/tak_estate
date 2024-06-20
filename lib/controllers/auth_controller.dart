@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:logger/web.dart';
 import 'package:tak/core/data/models/house.dart';
 import 'package:tak/core/utils/helpers.dart';
+import 'package:tak/features/security/presentation/pages/security.dart';
 
 import '../core/constants/constants.dart';
 import '../core/constants/dio_helper.dart';
@@ -30,15 +31,23 @@ class AuthController extends GetxController {
           await dio.get('auth/me', options: Options(headers: headers));
       final data = json.decode(response.data);
 
+      final role = data['data']['role'];
+      // Logger().d(role);
+
       if (response.statusCode == 200) {
         userProfile.value = UserModel.fromJson(data['data']);
-        final houseName = data['data']['tenant_house']['house'];
-        house.value = House.fromMap(houseName);
+
+        if (role == "security") {
+          Get.off(() => const Security());
+        } else {
+          final houseName = data['data']['tenant_house']['house'];
+          house.value = House.fromMap(houseName);
+        }
 
         //storeValue(valueName: 'email', value: email ?? "");
         //Logger().i(houseName);
 
-        //Logger().i(house.value?.name);
+        //Logger().i(userProfile.value?.role);
       } else {
         Logger().e(response.statusMessage);
       }
@@ -66,7 +75,7 @@ class AuthController extends GetxController {
 
         storeValue(valueName: 'token', value: token);
 
-        // Logger().i(data);
+        //Logger().i(data);
 
         toast("Loggin Successful.");
         Logger().d("Loggin Successful.");
