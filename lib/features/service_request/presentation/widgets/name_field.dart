@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 
 class NameField extends StatelessWidget {
   final Function callback;
+
   const NameField({
     super.key,
     required this.callback,
@@ -27,6 +28,7 @@ class NameField extends StatelessWidget {
           SizedBox(
             width: 358.w,
             child: TextFormField(
+             // enabled: false,
               keyboardType: TextInputType.text,
               onChanged: (v) {
                 callback(v);

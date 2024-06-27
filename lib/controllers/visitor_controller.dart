@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -24,6 +26,70 @@ class VisitorController extends GetxController {
   final RxList<SecurityVisitorEntity?> visitorSecurityList =
       RxList<SecurityVisitorEntity>([]);
 
+  Future<void> checkIn(dynamic Id) async {
+    bool isConnected = await _networkManager.isConnected();
+    if (isConnected) {
+      token?.value = (await readValue('token'))!;
+      var headers = {
+        'Authorization': 'Bearer $token',
+      };
+      Logger().i("id === $Id");
+
+      try {
+        var response = await dio.get('visitors/security/check-in/$Id',
+            options: Options(headers: headers));
+
+        final data = response.data;
+
+        if (response.statusCode == 200) {
+          Logger().i(data);
+          toast("Visitor Check In successfully");
+          //Get.off(() => const TakBottomNavigation());
+          update();
+        } else {
+          Logger().e(response.statusMessage);
+        }
+      } on DioException catch (e) {
+        Logger().e(e.message);
+      }
+    } else {
+      toast(noInternetTxt);
+      Logger().w(noInternetTxt);
+    }
+  }
+
+  Future<void> checkOut(dynamic Id) async {
+    bool isConnected = await _networkManager.isConnected();
+    if (isConnected) {
+      token?.value = (await readValue('token'))!;
+      var headers = {
+        'Authorization': 'Bearer $token',
+      };
+      Logger().i("id === $Id");
+
+      try {
+        var response = await dio.get('visitors/security/check-out/$Id',
+            options: Options(headers: headers));
+
+        final data = response.data;
+
+        if (response.statusCode == 200) {
+          Logger().i(data);
+          toast("Visitor Check Out successfully");
+          //Get.off(() => const TakBottomNavigation());
+          update();
+        } else {
+          Logger().e(response.statusMessage);
+        }
+      } on DioException catch (e) {
+        Logger().e(e.message);
+      }
+    } else {
+      toast(noInternetTxt);
+      Logger().w(noInternetTxt);
+    }
+  }
+
   Future<void> getVisitorSecurity() async {
     bool isConnected = await _networkManager.isConnected();
 
@@ -43,7 +109,7 @@ class VisitorController extends GetxController {
             .map((json) => SecurityVisitorModel.fromJson(json))
             .toList();
 
-        Logger().i(response);
+        // Logger().i(response);
 
         //Logger().i(visitorSecurityList.first?.houseNo);
         if (response.statusCode == 200) {
@@ -72,7 +138,7 @@ class VisitorController extends GetxController {
       };
       try {
         var response = await dio.get(
-          'visitors',
+          'visitors/myVisitor',
           options: Options(headers: headers),
         );
 

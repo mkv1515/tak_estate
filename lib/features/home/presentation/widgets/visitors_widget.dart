@@ -153,6 +153,39 @@ class _VisitorsWidgetState extends State<VisitorsWidget> {
                                   ),
                           ],
                         ),
+
+                          const Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Check-Out",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                            visitor.check_out == null
+                                ? Text(
+                                    "Pending",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                          color: Colors.red,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                  )
+                                : HeroIcon(
+                                    HeroIcons.checkBadge,
+                                    color: Colors.green[800],
+                                  ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

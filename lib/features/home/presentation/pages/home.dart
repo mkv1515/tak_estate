@@ -312,7 +312,7 @@ class _HomeState extends State<Home> {
           ),
           backgroundColor: primaryColor,
           onTap: () async {
-            Get.to(() => AddRequest(
+            Get.to(() => AddRequest(name: controller.userProfile.value!.name,
                 houseId:
                     "${controller.userProfile.value?.tenantHouse?.houseId.toString()}"));
             //await context.push("/add-request", extra: houseId);

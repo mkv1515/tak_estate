@@ -12,10 +12,11 @@ import 'package:tak/features/service_request/presentation/widgets/submit_button.
 
 class AddRequest extends StatefulWidget {
   final String houseId;
+ final String name;
 
   const AddRequest({
     super.key,
-    required this.houseId,
+    required this.houseId, required this.name,
   });
 
   @override
@@ -23,7 +24,7 @@ class AddRequest extends StatefulWidget {
 }
 
 class _AddRequestState extends State<AddRequest> {
-  String? name;
+ // String? name;
   String? description;
   String? priority;
   String? section;
@@ -37,7 +38,7 @@ class _AddRequestState extends State<AddRequest> {
 
   @override
   Widget build(BuildContext context) {
-    Logger().i("House Id === ${widget.houseId}");
+    Logger().i("House Id and name === ${widget.houseId} ${widget.name}");
 
     return Scaffold(
       appBar: AppBar(
@@ -61,13 +62,13 @@ class _AddRequestState extends State<AddRequest> {
           margin: EdgeInsets.only(left: 8.w, right: 8.w, bottom: 16.h),
           child: Column(
             children: [
-              NameField(
-                callback: (v) {
-                  setState(() {
-                    name = v;
-                  });
-                },
-              ),
+              // NameField(
+              //   callback: (v) {
+              //     setState(() {
+              //    // widget.name = v;
+              //     });
+              //   },
+              // ),
               Gap(16.h),
               SectionDropdown(callback: (v) {
                 setState(() {
@@ -120,7 +121,7 @@ class _AddRequestState extends State<AddRequest> {
               }),
               Gap(16.h),
               SubmitButton(
-                name: name,
+                name:widget.name,
                 description: description,
                 priority: priority,
                 houseId: widget.houseId,

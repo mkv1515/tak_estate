@@ -16,8 +16,8 @@ class SecurityVisitorModel extends SecurityVisitorEntity {
     return SecurityVisitorModel(
       id: json['id'],
       visitorName: json['visitor_name'],
-      checkIn: json['check-in'],
-      checkOut: json['check-out'],
+      checkIn: json['check_in'],
+      checkOut: json['check_out'],
       arrival: json['arrival'],
       departure: json['departure'],
       phone: json['phone'],

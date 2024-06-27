@@ -10,8 +10,6 @@ import 'package:tak/controllers/visitor_controller.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/core/widgets/tak_along_loading.dart';
-import 'package:tak/core/widgets/tak_error_widget.dart';
-import 'package:tak/features/security/domain/entities/check_entity.dart';
 import 'package:tak/features/security/domain/entities/security_visitors_entity.dart';
 
 class SecurityVisitorWidget extends StatefulWidget {
@@ -68,6 +66,7 @@ class _SecurityVisitorWidgetState extends State<SecurityVisitorWidget> {
             itemBuilder: (context, index) {
               SecurityVisitorEntity? visitor =
                   controller.visitorSecurityList[index];
+              //Logger().d("Check in === ${visitor?.checkIn}");
               return ExpansionTile(
                 title: Text(
                   visitor!.visitorName,
@@ -162,6 +161,38 @@ class _SecurityVisitorWidgetState extends State<SecurityVisitorWidget> {
                                   ),
                           ],
                         ),
+                        const Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Check-Out",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                            visitor.checkOut == null
+                                ? Text(
+                                    "Pending",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                          color: Colors.red,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                  )
+                                : HeroIcon(
+                                    HeroIcons.checkBadge,
+                                    color: Colors.green[800],
+                                  ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -208,6 +239,58 @@ class _SecurityVisitorWidgetState extends State<SecurityVisitorWidget> {
                                     //     CheckInEvent(
                                     //         visitorId:
                                     //             visitor.id.toString()));
+                                    controller.checkIn(visitor.id);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
+                  const Divider(),
+                  visitor.checkOut == null
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  left: 8.w,
+                                  right: 8.w,
+                                  bottom: 8.h,
+                                ),
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        side: BorderSide(
+                                          color: Colors.blue,
+                                          width: 1.w,
+                                        ),
+                                      ),
+                                    ),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      Colors.blue,
+                                    ),
+                                  ),
+                                  child: controller.visitorSecurityList.isNull
+                                      ? const TakLoading()
+                                      : Text(
+                                          "Check-Out",
+                                          style: GoogleFonts.robotoFlex(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: white,
+                                          ),
+                                        ),
+                                  onPressed: () {
+                                    // context.read<SecurityBloc>().add(
+                                    //     CheckInEvent(
+                                    //         visitorId:
+                                    //             visitor.id.toString()));
+                                    controller.checkOut(visitor.id);
                                   },
                                 ),
                               ),
