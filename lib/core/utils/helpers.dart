@@ -88,3 +88,6 @@ String convertDateToAgo(String dateString) {
     return 'just now';
   }
 }
+
+
+    NumberFormat currencyFormat = NumberFormat.currency(locale: 'en_US', symbol: '\₦');

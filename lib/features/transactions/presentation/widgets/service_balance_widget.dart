@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tak/controllers/service_request_controller.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/colors.dart';
+import 'package:tak/core/utils/helpers.dart';
 
 class ServiceBalanceWidget extends StatelessWidget {
   const ServiceBalanceWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-            String amount = '0.00';
+ final controller = Get.put(ServiceRequestController());
+
+    String amount =
+        currencyFormat.format(controller.balance.value!.service_Balance);
 
     return  Container(
           width: double.infinity,

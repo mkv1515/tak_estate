@@ -1,6 +1,6 @@
 class BalanceEntity {
-  final int rentTotal;
-  final int serviceTotal;
+  final dynamic rentTotal;
+  final dynamic serviceTotal;
   BalanceEntity({
     required this.rentTotal,
     required this.serviceTotal,
