@@ -56,8 +56,8 @@ class _HomeState extends State<Home> {
     controller.getUserData();
 
     final controller2 = Get.put(ServiceRequestController());
+
     controller2.getServiceRequest();
-    controller2.getBalance();
     final controller3 = Get.put(VisitorController());
     controller3.getVisitor();
     name = "${controller.userProfile.value?.name.toString()}".inCaps;

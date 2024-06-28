@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:tak/core/utils/colors.dart';
+
 void toast(String msg) {
   Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_LONG,
-  );
+      msg: msg, toastLength: Toast.LENGTH_SHORT, backgroundColor: primaryColor);
 }
 
 String formatDuration(Duration duration) {
@@ -89,5 +89,5 @@ String convertDateToAgo(String dateString) {
   }
 }
 
-
-    NumberFormat currencyFormat = NumberFormat.currency(locale: 'en_US', symbol: '\₦');
+NumberFormat currencyFormat =
+    NumberFormat.currency(locale: 'en_US', symbol: '\₦');

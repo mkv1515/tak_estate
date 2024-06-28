@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tak/controllers/auth_controller.dart';
 
 import '../../../../core/data/models/user_model.dart';
 import '../../../onboard/presentation/pages/onboarding.dart';
@@ -45,6 +46,7 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AuthController());
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -96,6 +98,7 @@ class _SettingsState extends State<Settings> {
           ListTile(
             onTap: () {
               //context.read<AuthBloc>().add(LogoutEvent());
+              controller.logout();
               Get.offAll(() => const Onboarding());
             },
             leading: const Icon(

@@ -24,8 +24,16 @@ class ServiceRequestController extends GetxController {
   RxBool isEmpty = false.obs;
   RxString? token = "".obs;
   RxString userEmail = "".obs;
-
   Rx<BalanceModel?> balance = Rx<BalanceModel?>(null);
+
+  @override
+  void onInit() {
+    super.onInit();
+    // Initialization code here
+    Logger().d("getBalance Controller initialized");
+    // Example: Fetch initial data
+    getBalance();
+  }
 
   Future<void> getBalance() async {
     bool isConnected = await _networkManager.isConnected();
@@ -41,12 +49,13 @@ class ServiceRequestController extends GetxController {
           options: Options(headers: headers),
         );
 
-      final data = json.encode(response.data['data']);
+        final data = json.encode(response.data['data']);
         Logger().i(data);
 
         if (response.statusCode == 200) {
           balance.value = BalanceModel.fromJson(data);
           Logger().d(balance.value?.rent_Balance);
+          update();
         } else {
           Logger().e(response.statusMessage);
         }

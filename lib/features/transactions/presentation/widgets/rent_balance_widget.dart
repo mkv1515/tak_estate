@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tak/controllers/service_request_controller.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/colors.dart';
-import 'package:tak/core/utils/helpers.dart';
 
 class RentBalanceWidget extends StatelessWidget {
   const RentBalanceWidget({super.key});
@@ -15,8 +14,8 @@ class RentBalanceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ServiceRequestController());
 
-    String amount =
-        currencyFormat.format(controller.balance.value!.rent_Balance);
+
+    String? amount = controller.balance.value?.rent_Balance.toString();
 
     return Container(
       width: double.infinity,
@@ -50,7 +49,7 @@ class RentBalanceWidget extends StatelessWidget {
               ),
               Gap(8.w),
               Text(
-                amount,
+                "₦ ${amount ?? "0.0"}",
                 maxLines: 1,
                 overflow: TextOverflow.clip,
                 style: GoogleFonts.robotoFlex(

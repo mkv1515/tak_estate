@@ -19,6 +19,13 @@ class AuthController extends GetxController {
   RxString? token = "".obs;
   Rx<UserModel?> userProfile = Rx<UserModel?>(null);
   Rx<House?> house = Rx<House?>(null);
+  var isLoggedIn = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    autoLogin();
+  }
 
   Future<void> getUserData() async {
     token?.value = (await readValue('token'))!;
@@ -74,6 +81,7 @@ class AuthController extends GetxController {
         final token = data['data']['access_token'].toString();
 
         storeValue(valueName: 'token', value: token);
+        isLoggedIn.value = true;
 
         //Logger().i(data);
 
@@ -91,5 +99,17 @@ class AuthController extends GetxController {
       Logger().e(e.response?.statusMessage.toString());
       toast(e.response!.statusMessage.toString());
     }
+  }
+
+  Future<void> autoLogin() async {
+    String? token = (await readValue('token'))!;
+    if (token.isNotEmpty) {
+      isLoggedIn.value = true;
+    }
+  }
+
+  Future<void> logout() async {
+    deleteAllValue();
+    isLoggedIn.value = false;
   }
 }

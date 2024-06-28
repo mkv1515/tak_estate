@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:tak/controllers/auth_controller.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/colors.dart';
+import 'package:tak/features/onboard/presentation/pages/onboarding.dart';
 
 class ProfileLogout extends StatelessWidget {
   const ProfileLogout({
@@ -11,9 +14,14 @@ class ProfileLogout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final controller = Get.put(AuthController());
+
     return GestureDetector(
       onTap: () {
         //context.read<AuthBloc>().add(LogoutEvent());
+      controller.logout();
+        Get.offAll(() => const Onboarding());
+
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

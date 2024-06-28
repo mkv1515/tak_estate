@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
+import 'package:tak/controllers/service_request_controller.dart';
 import 'package:tak/core/widgets/tak_along_drawer.dart';
 import 'package:tak/features/home/presentation/pages/home.dart';
 import 'package:tak/features/messages/presentation/pages/messages.dart';
@@ -134,7 +135,11 @@ class _TakBottomNavigationState extends State<TakBottomNavigation> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AuthController());
+    //final controller2 = Get.put(ServiceRequestController());
+
+    //controller2.getBalance();
     controller.getUserData();
+
 
     return Scaffold(
       body: bottomNavScreen.elementAt(currentPageIndex),
