@@ -75,7 +75,7 @@ class ServiceRequestCard extends StatelessWidget {
                 ),
                 Icon(
                   size: 24.dg,
-                  _getIconForPriority(request!.priority),
+                  _getIconForPriority(request!.priority) as IconData,
                   color: _getColorForPriority(request!.priority),
                 ),
               ],
