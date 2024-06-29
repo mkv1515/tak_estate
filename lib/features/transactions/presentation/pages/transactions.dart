@@ -96,6 +96,7 @@ class _TransactionsState extends State<Transactions> {
                 ],
               ),
             ),
+            Gap(16.h),
             const PaymentTransactionWidget(),
             Gap(16.h),
           ],

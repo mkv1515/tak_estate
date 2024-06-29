@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/extensions.dart';
 import 'package:tak/core/utils/helpers.dart';
+import 'package:tak/features/transactions/data/model/invoice_model.dart';
 import 'package:tak/features/transactions/domain/entities/invoice_entity.dart';
+import 'package:tak/features/transactions/presentation/pages/transaction_detials.dart';
 
 class TransactionWidgetDebit extends StatelessWidget {
-  final InvoiceEntity invoice;
+  final InvoiceModel? invoice;
   const TransactionWidgetDebit({
     super.key,
     required this.invoice,
@@ -24,6 +27,14 @@ class TransactionWidgetDebit extends StatelessWidget {
       //     "invoice": invoice,
       //   },
       // );
+
+ Get.to(() => TransactionDetails(
+extra:    {
+           "type": "invoice",
+           "invoice": invoice,
+         },
+                ));
+
       },
       child: Container(
         width: 358.w,
@@ -58,7 +69,7 @@ class TransactionWidgetDebit extends StatelessWidget {
                           SizedBox(
                             width: double.infinity,
                             child: Text(
-                              invoice.type.inCaps,
+                              invoice!.type.inCaps,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
@@ -70,7 +81,7 @@ class TransactionWidgetDebit extends StatelessWidget {
                           Gap(5.h),
                           SizedBox(
                             child: Text(
-                              convertDateToAgo(invoice.createdAt),
+                              convertDateToAgo(invoice!.created_at),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -90,7 +101,7 @@ class TransactionWidgetDebit extends StatelessWidget {
                         children: [
                           SizedBox(
                             child: Text(
-                              "Type: ${invoice.type.inCaps}",
+                              "Type: ${invoice?.type.inCaps}",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -102,7 +113,7 @@ class TransactionWidgetDebit extends StatelessWidget {
                           ),
                           SizedBox(
                             child: Text(
-                              '${invoice.amount}',
+                              '${invoice?.amount}',
                               textAlign: TextAlign.right,
                               style: Theme.of(context)
                                   .textTheme

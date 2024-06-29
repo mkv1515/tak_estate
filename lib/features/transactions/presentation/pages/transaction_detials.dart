@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/extensions.dart';
 import 'package:tak/core/utils/helpers.dart';
-import 'package:tak/features/transactions/domain/entities/invoice_entity.dart';
-import 'package:tak/features/transactions/domain/entities/payment_entity.dart';
+import 'package:tak/features/transactions/data/model/invoice_model.dart';
+import 'package:tak/features/transactions/data/model/payment_model.dart';
 
 class TransactionDetails extends StatefulWidget {
   final Map<String, dynamic> extra;
@@ -16,8 +17,8 @@ class TransactionDetails extends StatefulWidget {
 }
 
 class _TransactionDetailsState extends State<TransactionDetails> {
-  InvoiceEntity? invoiceEntity;
-  PaymentEntity? paymentEntity;
+  InvoiceModel? invoiceEntity;
+  PaymentModel? paymentEntity;
   String? type;
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back_ios)),
         title: Text(
           type == "invoice" ? 'Invoice' : "Payment",
         ),
@@ -89,7 +91,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                   ),
             ),
             Text(
-              convertDateToAgo(invoiceEntity!.createdAt),
+              convertDateToAgo(invoiceEntity!.created_at),
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -109,7 +111,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                   ),
             ),
             Text(
-              invoiceEntity!.invoiceNo,
+              invoiceEntity!.invoice_no,
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -212,7 +214,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                   ),
             ),
             Text(
-              convertDateToAgo(paymentEntity!.createdAt),
+              convertDateToAgo(paymentEntity!.created_at),
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -232,7 +234,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                   ),
             ),
             Text(
-              paymentEntity!.paymentType,
+              paymentEntity!.payment_type,
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -321,7 +323,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                   ),
             ),
             Text(
-              paymentEntity!.paymentMethod,
+              paymentEntity!.payment_method,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,

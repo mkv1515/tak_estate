@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:tak/controllers/service_request_controller.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/widgets/tak_along_loading.dart';
 import 'package:tak/core/widgets/tak_error_widget.dart';
@@ -11,21 +13,26 @@ class PaymentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-              List<PaymentEntity> payments = [];
+        final controller = Get.put(ServiceRequestController());
+
+             // List<PaymentEntity> payments = [];
 
     return  Container(
               padding: EdgeInsets.only(left: 15.w, right: 15.w),
-              child: ListView.builder(
-                itemCount: payments.length,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return TransactionWidgetCredit(
-                    payment: payments[index],
-                  );
-                },
+              child: Obx(() =>  ListView.builder(
+                  itemCount: controller.paymentList.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                                var payments = controller.paymentList[index];
+
+                    return TransactionWidgetCredit(
+                      payment: payments,
+                    );
+                  },
+                ),
               ),
-            
+
 
     );
   }

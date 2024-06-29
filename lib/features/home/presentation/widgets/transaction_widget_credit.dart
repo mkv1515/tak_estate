@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:tak/core/constants/assets.dart';
 import 'package:tak/core/utils/extensions.dart';
 import 'package:tak/core/utils/helpers.dart';
+import 'package:tak/features/transactions/data/model/payment_model.dart';
 import 'package:tak/features/transactions/domain/entities/payment_entity.dart';
+import 'package:tak/features/transactions/presentation/pages/transaction_detials.dart';
 
 class TransactionWidgetCredit extends StatelessWidget {
-  final PaymentEntity payment;
+  final PaymentModel? payment;
   const TransactionWidgetCredit({super.key, required this.payment});
 
   @override
@@ -15,13 +18,21 @@ class TransactionWidgetCredit extends StatelessWidget {
     return GestureDetector(
       onTap: () {
 //context.push(
-      //   "/transaction-details",
-      //   extra: {
-      //     "type": "payment",
-      //     "payment": payment,
-      //   },
-      // ),
+        //   "/transaction-details",
+        //   extra: {
+        //     "type": "payment",
+        //     "payment": payment,
+        //   },
+        // ),
 
+        Get.to(
+          () => TransactionDetails(
+            extra: {
+              "type": "payment",
+              "payment": payment,
+            },
+          ),
+        );
       },
       child: Container(
         width: 358.w,
@@ -56,7 +67,7 @@ class TransactionWidgetCredit extends StatelessWidget {
                           SizedBox(
                             width: double.infinity,
                             child: Text(
-                              payment.type.inCaps,
+                              payment!.type.inCaps,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
@@ -68,7 +79,7 @@ class TransactionWidgetCredit extends StatelessWidget {
                           Gap(5.h),
                           SizedBox(
                             child: Text(
-                              convertDateToAgo(payment.createdAt),
+                              convertDateToAgo(payment!.created_at),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -88,7 +99,7 @@ class TransactionWidgetCredit extends StatelessWidget {
                         children: [
                           SizedBox(
                             child: Text(
-                              "Type: ${payment.type.inCaps}",
+                              "Type: ${payment?.type.inCaps}",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -100,7 +111,7 @@ class TransactionWidgetCredit extends StatelessWidget {
                           ),
                           SizedBox(
                             child: Text(
-                              '${payment.amount}',
+                              '${payment?.amount}',
                               textAlign: TextAlign.right,
                               style: Theme.of(context)
                                   .textTheme
