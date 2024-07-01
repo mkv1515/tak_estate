@@ -91,7 +91,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                   ),
             ),
             Text(
-              convertDateToAgo(invoiceEntity!.created_at),
+              convertDate(invoiceEntity!.created_at),
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -214,7 +214,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                   ),
             ),
             Text(
-              paymentEntity!.created_at,
+             convertDate( paymentEntity!.created_at),
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
