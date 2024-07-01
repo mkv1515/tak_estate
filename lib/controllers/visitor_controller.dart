@@ -180,11 +180,11 @@ class VisitorController extends GetxController {
       try {
         var response = await dio
             .post('visitors/create', options: Options(headers: headers), data: {
-          "phone": visitorPhoneNumber,
+          "phone": "",
           "arrival": arrival,
           "departure": null,
           "car_regno": null,
-          "reason": reason,
+          "reason": "",
           "destination": house,
           "visitor_name": visitorName
         });

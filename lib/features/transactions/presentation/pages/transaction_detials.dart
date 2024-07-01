@@ -214,34 +214,41 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                   ),
             ),
             Text(
-              convertDateToAgo(paymentEntity!.created_at),
+              paymentEntity!.created_at,
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                   ),
             ),
+            // Text(
+            //   convertDateToAgo(paymentEntity!.created_at),
+            //   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+            //         fontSize: 14.sp,
+            //         fontWeight: FontWeight.w600,
+            //       ),
+            // ),
           ],
         ),
-        Gap(8.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Payment Type".toUpperCase(),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            Text(
-              paymentEntity!.payment_type,
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        ),
+        // Gap(8.h),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text(
+        //       "Payment Type".toUpperCase(),
+        //       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+        //             fontSize: 14.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //     ),
+        //     Text(
+        //       paymentEntity!.payment_type,
+        //       style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+        //             fontSize: 14.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //     ),
+        //   ],
+        // ),
         Gap(8.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -312,65 +319,65 @@ class _TransactionDetailsState extends State<TransactionDetails> {
           ],
         ),
         Gap(8.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Payment Method".toUpperCase(),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            Text(
-              paymentEntity!.payment_method,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        ),
-        Gap(8.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Prepared By".toUpperCase(),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            Text(
-              paymentEntity!.preparedBy,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        ),
-        Gap(8.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Currency".toUpperCase(),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            Text(
-              paymentEntity!.currency,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text(
+        //       "Payment Method".toUpperCase(),
+        //       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+        //             fontSize: 14.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //     ),
+        //     Text(
+        //       paymentEntity!.payment_method,
+        //       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+        //             fontSize: 14.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //     ),
+        //   ],
+        // ),
+        //Gap(8.h),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text(
+        //       "Prepared By".toUpperCase(),
+        //       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+        //             fontSize: 14.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //     ),
+        //     Text(
+        //       paymentEntity!.preparedBy,
+        //       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+        //             fontSize: 14.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //     ),
+        //   ],
+        // ),
+        // Gap(8.h),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text(
+        //       "Currency".toUpperCase(),
+        //       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+        //             fontSize: 14.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //     ),
+        //     Text(
+        //       paymentEntity!.currency,
+        //       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+        //             fontSize: 14.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //     ),
+        //   ],
+        // ),
         Gap(8.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
