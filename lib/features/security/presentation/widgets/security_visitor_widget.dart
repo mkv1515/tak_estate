@@ -56,6 +56,18 @@ class _SecurityVisitorWidgetState extends State<SecurityVisitorWidget> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+                Gap(20.h),
+                ElevatedButton.icon(
+                  // <-- ElevatedButton
+                  onPressed: () {
+                    controller.getVisitorSecurity();
+                  },
+                  icon: const Icon(
+                    Icons.refresh,
+                    size: 24.0,
+                  ),
+                  label: const Text('Refreash'),
+                ),
               ],
             ),
           )
@@ -75,7 +87,7 @@ class _SecurityVisitorWidgetState extends State<SecurityVisitorWidget> {
                         fontWeight: FontWeight.w400,
                       ),
                 ),
-                subtitle: Text(visitor.phone),
+                //subtitle: Text(visitor.phone),
                 leading: const Icon(Icons.person),
                 trailing:
                     Icon(_isExpanded ? Icons.expand_less : Icons.expand_more),

@@ -62,11 +62,15 @@ class SubmitButton extends StatelessWidget {
 
           if (visitorName!.isEmpty) {
             toast("Visitor Name is required");
-          } else if (visitorPhoneNumber!.isEmpty) {
-            toast("Visitor Phone number is required");
-          } else if (reason!.isEmpty) {
-            toast("Reason for visit is required");
-          } else if (arrival!.isEmpty) {
+          }
+
+          //  else if (visitorPhoneNumber!.isEmpty) {
+          //   toast("Visitor Phone number is required");
+          // } else if (reason!.isEmpty) {
+          //   toast("Reason for visit is required");
+          // }
+
+           else if (arrival!.isEmpty) {
             toast("Arrival Date is required");
           } else if (departure!.isEmpty) {
             toast("Departure Date is required");

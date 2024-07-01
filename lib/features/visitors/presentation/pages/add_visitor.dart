@@ -67,18 +67,18 @@ class _AddVisitorState extends State<AddVisitor> {
                   visitorName = v;
                 });
               }),
-              Gap(16.h),
-              PhoneField(callback: (v) {
-                setState(() {
-                  visitorPhoneNumber = v;
-                });
-              }),
-              Gap(16.h),
-              ReasonField(callback: (v) {
-                setState(() {
-                  reason = v;
-                });
-              }),
+              // Gap(16.h),
+              // PhoneField(callback: (v) {
+              //   setState(() {
+              //     visitorPhoneNumber = v;
+              //   });
+              // }),
+              // Gap(16.h),
+              // ReasonField(callback: (v) {
+              //   setState(() {
+              //     reason = v;
+              //   });
+              // }),
               Gap(16.h),
               DateArrival(
                 callback: (v) {

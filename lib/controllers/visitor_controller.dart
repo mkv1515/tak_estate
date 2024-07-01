@@ -109,7 +109,7 @@ class VisitorController extends GetxController {
             .map((json) => SecurityVisitorModel.fromJson(json))
             .toList();
 
-        // Logger().i(response);
+       Logger().i(response.data);
 
         //Logger().i(visitorSecurityList.first?.houseNo);
         if (response.statusCode == 200) {

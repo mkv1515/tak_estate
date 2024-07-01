@@ -5,7 +5,7 @@ class SecurityVisitorEntity {
   final String? checkOut;
   final String arrival;
   final String? departure;
-  final String phone;
+  final dynamic? phone;
   final String houseNo;
 
   SecurityVisitorEntity({
