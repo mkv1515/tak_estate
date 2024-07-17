@@ -33,7 +33,7 @@ class ServiceBalanceWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Service Balance",
+            "Service Charge Balance",
             style: GoogleFonts.robotoFlex(
               color: white,
               fontSize: 14.sp,
@@ -49,7 +49,6 @@ class ServiceBalanceWidget extends StatelessWidget {
               Gap(8.w),
               Text(
                 "₦ ${amount ?? "0.0"}",
-
                 maxLines: 1,
                 overflow: TextOverflow.clip,
                 style: GoogleFonts.robotoFlex(

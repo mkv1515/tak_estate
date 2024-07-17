@@ -1,12 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/web.dart';
 import 'package:tak/core/utils/helpers.dart';
 import 'package:tak/core/widgets/tak_bottom_navigation.dart';
-import 'package:tak/features/auth/presentation/pages/login.dart';
 import 'package:tak/features/onboard/presentation/pages/onboarding.dart';
-import 'package:tak/features/onboard/presentation/widgets/onboard_login_button.dart';
 
 import '../core/constants/constants.dart';
 import '../core/constants/dio_helper.dart';
@@ -16,6 +13,7 @@ import '../core/constants/store_value.dart';
 class UpdateProfileController extends GetxController {
   RxString? token = "".obs;
   final NetworkManager _networkManager = NetworkManager();
+  var isUpdating = true.obs;
 
   Future<void> updateProfile(String phone, gender, name) async {
     bool isConnected = await _networkManager.isConnected();
@@ -43,12 +41,16 @@ class UpdateProfileController extends GetxController {
         } else {
           Logger().e(response.statusMessage);
         }
+
+        isUpdating.value = false;
       } on DioException catch (e) {
         Logger().e(e.message);
+        isUpdating.value = false;
       }
     } else {
       toast(noInternetTxt);
       Logger().w(noInternetTxt);
+      isUpdating.value = false;
     }
   }
 

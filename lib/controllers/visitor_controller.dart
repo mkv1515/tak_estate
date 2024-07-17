@@ -17,6 +17,8 @@ import '../core/utils/helpers.dart';
 import 'auth_controller.dart';
 
 class VisitorController extends GetxController {
+  var submitting = true.obs;
+
   final NetworkManager _networkManager = NetworkManager();
   var dateNow = DateFormat("dd/MM/yyyy").add_jm().format(DateTime.now());
   final controller = Get.put(AuthController());
@@ -109,7 +111,7 @@ class VisitorController extends GetxController {
             .map((json) => SecurityVisitorModel.fromJson(json))
             .toList();
 
-       Logger().i(response.data);
+        Logger().i(response.data);
 
         //Logger().i(visitorSecurityList.first?.houseNo);
         if (response.statusCode == 200) {
@@ -165,45 +167,5 @@ class VisitorController extends GetxController {
     }
   }
 
-  Future<void> addVistor(String visitorName, visitorPhoneNumber, reason,
-      arrival, departure) async {
-    bool isConnected = await _networkManager.isConnected();
-    if (isConnected) {
-      token?.value = (await readValue('token'))!;
-      var headers = {
-        'Authorization': 'Bearer $token',
-      };
-      final house = controller.house.value?.name;
-      Logger().i(
-          "$visitorName, $visitorPhoneNumber, $reason, $arrival, $departure, $house");
-
-      try {
-        var response = await dio
-            .post('visitors/create', options: Options(headers: headers), data: {
-          "phone": "",
-          "arrival": arrival,
-          "departure": null,
-          "car_regno": null,
-          "reason": "",
-          "destination": house,
-          "visitor_name": visitorName
-        });
-
-        final data = response.data;
-
-        if (response.statusCode == 200) {
-          Logger().i(data);
-          toast("Visitor created successfully");
-          Get.off(() => const TakBottomNavigation());
-        } else {
-          Logger().e(response.statusMessage);
-        }
-      } on DioException catch (e) {
-        Logger().e(e.message);
-      }
-    } else {
-      toast(noInternetTxt);
-      Logger().w(noInternetTxt);
-    }
-  }
+ 
 }

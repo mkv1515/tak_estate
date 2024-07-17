@@ -29,7 +29,6 @@ class ServiceRequestController extends GetxController {
   Rx<BalanceModel?> balance = Rx<BalanceModel?>(null);
   final RxList<InvoiceModel?> invoiceList = RxList<InvoiceModel>([]);
   final RxList<PaymentModel?> paymentList = RxList<PaymentModel>([]);
-
   Future<void> getTransactions() async {
     bool isConnected = await _networkManager.isConnected();
 
@@ -152,64 +151,5 @@ class ServiceRequestController extends GetxController {
     }
   }
 
-  Future<void> addServiceRequest(String description, name, priority, houseId,
-      section, maintenance, location) async {
-    bool isConnected = await _networkManager.isConnected();
 
-//date format
-    // DateTime now = DateTime.now();
-    // DateFormat formatterspan = DateFormat('yyyy-MM-dd');
-    // String datespan = formatterspan.format(now);
-    // DateFormat formattertime = DateFormat('hh:mm:ss');
-    // String timespan = formattertime.format(now);
-
-    //final arrival = "$datespan $timespan";
-    //final dateNow = "$datespan $timespan";
-
-    Logger().i(
-        "$description, $name, $priority, $houseId, $section, $maintenance, $location");
-
-    token?.value = (await readValue('token'))!;
-    var headers = {
-      'Authorization': 'Bearer $token',
-    };
-    if (isConnected) {
-      try {
-        var response = await dio.post('services/create',
-            options: Options(headers: headers),
-            data: json.encode({
-              "description": "$description",
-              "name": "$name",
-              "priority": "$priority",
-              "house_id": int.parse(houseId.toString()),
-              "section": "$section",
-              "location": location,
-              "maintenance": maintenance
-
-              // "description": description,
-              // "name": name,
-              // "priority": priority,
-              // "house_id": houseId,
-              // "section": section,
-              // "location": location,
-              // "maintenance": maintenance
-            }));
-
-        final data = response.data;
-
-        if (response.statusCode == 200) {
-          Logger().i(data);
-          toast("Service Request created!");
-          Get.off(() => const TakBottomNavigation());
-        } else {
-          Logger().e(response.statusMessage);
-        }
-      } on DioException catch (e) {
-        Logger().e(e.message);
-      }
-    } else {
-      toast(noInternetTxt);
-      Logger().w(noInternetTxt);
-    }
-  }
 }

@@ -32,7 +32,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AuthController());
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(

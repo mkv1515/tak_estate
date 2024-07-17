@@ -44,7 +44,7 @@ class _DateArrivalState extends State<DateArrival> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Arrvial",
+            "Arrival",
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   fontSize: 16.sp,
                 ),

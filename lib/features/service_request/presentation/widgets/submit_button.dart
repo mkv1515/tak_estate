@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tak/controllers/service_request_controller.dart';
+import 'package:tak/controllers/add_service_request.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
+import 'package:tak/core/widgets/tak_along_loading.dart';
 
 class SubmitButton extends StatelessWidget {
   final String? name;
@@ -30,7 +31,7 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ServiceRequestController());
+    final controller = Get.put(AddServiceRequest());
     return Container(
       margin: EdgeInsets.only(
         left: 16.w,
@@ -50,17 +51,17 @@ class SubmitButton extends StatelessWidget {
           ),
           backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
         ),
-        child:
-            // state is ServiceRequestLoadingState
-            //     ? const TakLoading()
-            //     :
-            Text(
-          "Submit",
-          style: GoogleFonts.robotoFlex(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: white,
-          ),
+        child: Obx(
+          () => controller.submitting.value
+              ? Text(
+                  "Submit",
+                  style: GoogleFonts.robotoFlex(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: white,
+                  ),
+                )
+              : const TakLoading(),
         ),
         onPressed: () {
           if (name == null) {

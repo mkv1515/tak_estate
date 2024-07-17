@@ -6,6 +6,7 @@ import 'package:logger/web.dart';
 import 'package:tak/controllers/update_profile_controller.dart';
 import 'package:tak/core/utils/colors.dart';
 import 'package:tak/core/utils/helpers.dart';
+import 'package:tak/core/widgets/tak_along_loading.dart';
 
 class UpdateProfileButton extends StatelessWidget {
   final String name;
@@ -48,18 +49,17 @@ class UpdateProfileButton extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
           ),
-          child:
-
-              // state is ProfileLoadingState
-              //     ? const TakLoading()
-              //     :
-              Text(
-            "Update Profile",
-            style: GoogleFonts.robotoFlex(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              color: white,
-            ),
+          child: Obx(
+            () => controller.isUpdating.value
+                ? Text(
+                    "Update Profile",
+                    style: GoogleFonts.robotoFlex(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: white,
+                    ),
+                  )
+                : const TakLoading(),
           ),
           // onPressed: () async {
           //   if (state is ProfileLoadingState) {
