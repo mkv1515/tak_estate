@@ -47,28 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDzYffmOvbXfVOUY9BoyhSjhKuldl5jn-c',
-    appId: '1:199455342580:web:31447e64ec90e45ad883a1',
-    messagingSenderId: '199455342580',
-    projectId: 'tak-estate-e8651',
-    authDomain: 'tak-estate-e8651.firebaseapp.com',
-    storageBucket: 'tak-estate-e8651.appspot.com',
+    apiKey: 'AIzaSyCUvwyHx878v1_ri1tSLdRUEH_zZb7EkO4',
+    appId: '1:564965677357:web:f767a323f637596f5a5ba4',
+    messagingSenderId: '564965677357',
+    projectId: 'tak-estate-eac42',
+    authDomain: 'tak-estate-eac42.firebaseapp.com',
+    storageBucket: 'tak-estate-eac42.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCDo9Ef1m7WWWLXs_eccOjmO-iS5KfwQpY',
-    appId: '1:199455342580:android:abc2b5185af56d52d883a1',
-    messagingSenderId: '199455342580',
-    projectId: 'tak-estate-e8651',
-    storageBucket: 'tak-estate-e8651.appspot.com',
+    apiKey: 'AIzaSyAuPPdjflaWcacW5TXKcmuEYK-JXH8hgwQ',
+    appId: '1:564965677357:android:fca69fa2ee5facfc5a5ba4',
+    messagingSenderId: '564965677357',
+    projectId: 'tak-estate-eac42',
+    storageBucket: 'tak-estate-eac42.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAvyCMjBRkIX-B1k9unIvB1nCjCcwrnHOg',
-    appId: '1:199455342580:ios:f2db662e9ecd464fd883a1',
-    messagingSenderId: '199455342580',
-    projectId: 'tak-estate-e8651',
-    storageBucket: 'tak-estate-e8651.appspot.com',
+    apiKey: 'AIzaSyBb9tJmGn2LB1xjMF7VaSgNUXVSpACDHgk',
+    appId: '1:564965677357:ios:5fb12715e8deb5815a5ba4',
+    messagingSenderId: '564965677357',
+    projectId: 'tak-estate-eac42',
+    storageBucket: 'tak-estate-eac42.appspot.com',
     iosBundleId: 'com.jubileesystem.tak.tak',
   );
 }

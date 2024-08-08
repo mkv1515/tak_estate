@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "199455342580",
-    "project_id": "tak-estate-e8651",
-    "storage_bucket": "tak-estate-e8651.appspot.com"
+    "project_number": "564965677357",
+    "project_id": "tak-estate-eac42",
+    "storage_bucket": "tak-estate-eac42.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:199455342580:android:abc2b5185af56d52d883a1",
+        "mobilesdk_app_id": "1:564965677357:android:fca69fa2ee5facfc5a5ba4",
         "android_client_info": {
           "package_name": "com.jubileesystem.tak.takestate"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCDo9Ef1m7WWWLXs_eccOjmO-iS5KfwQpY"
+          "current_key": "AIzaSyAuPPdjflaWcacW5TXKcmuEYK-JXH8hgwQ"
         }
       ],
       "services": {
